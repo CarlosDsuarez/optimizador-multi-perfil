@@ -1,0 +1,25 @@
+[project]
+name = "optimizador-multi-perfil"
+version = "0.1.0"
+description = "Optimizador Multi-Perfil HRP sobre FICs (SFC / datos.gov.co)"
+requires-python = ">=3.11"
+dependencies = [
+  "pandas>=2.2",
+  "pyarrow>=15",
+  "requests>=2.31",
+  "tenacity>=8.2",
+  "holidays>=0.50",
+  "scipy>=1.13",
+  "scikit-learn>=1.5",
+  "cvxpy>=1.5",
+  "riskfolio-lib==7.3.0",
+  "PyPortfolioOpt==1.6.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "pytest-cov>=5"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"

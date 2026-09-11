@@ -1,0 +1,39 @@
+{
+  "_source": "docs/fase0_data_gate.md §2.3 — D1/D3/D4 aprobadas por Carlos el 2026-09-11 (Opción 1: 18 core + 3 late, sin sustituciones)",
+  "datasets": {
+    "series": "qhpu-8ixx",
+    "metadata": "djw7-ur7t"
+  },
+  "domain": "www.datos.gov.co",
+  "start_date": "2016-01-01",
+  "sufficiency": {
+    "max_start_delay_days": 31,
+    "min_completeness": 0.99,
+    "max_gap_days": 31,
+    "max_end_lag_days": 3,
+    "splice_tolerance": 0.02
+  },
+  "funds": [
+    {"fund_id": "FIDUCUENTA",               "cat": "RF_CORTO", "rol": "core", "codes": [2852],          "clase": 800, "nombre": "FIC Abierto Fiducuenta",                                  "admin": "Fiduciaria Bancolombia",  "inicio_esperado": "2016-01-01"},
+    {"fund_id": "FIDUPREVISORA_LIQUIDEZ",   "cat": "RF_CORTO", "rol": "core", "codes": [11407],         "clase": 518, "nombre": "Cartera Colectiva Abierta de Alta Liquidez",             "admin": "Fiduprevisora",           "inicio_esperado": "2018-03-01"},
+    {"fund_id": "CREDICORP_ALTA_LIQUIDEZ",  "cat": "RF_CORTO", "rol": "core", "codes": [58756],         "clase": 800, "nombre": "Credicorp Capital Alta Liquidez",                        "admin": "Credicorp Capital",       "inicio_esperado": "2016-01-01"},
+    {"fund_id": "BBVA_EFECTIVO",            "cat": "RF_CORTO", "rol": "core", "codes": [8734],          "clase": 501, "nombre": "FIC Abierto BBVA Efectivo",                              "admin": "BBVA AM",                 "inicio_esperado": "2016-01-01"},
+    {"fund_id": "PLAN_SEMILLA",             "cat": "RF_LARGO", "rol": "core", "codes": [3049],          "clase": 800, "nombre": "FIC Abierto CPP Plan Semilla",                           "admin": "Fiduciaria Bancolombia",  "inicio_esperado": "2016-01-01"},
+    {"fund_id": "CREDICORP_DEUDA_CORP",     "cat": "RF_LARGO", "rol": "core", "codes": [58883],         "clase": 800, "nombre": "Credicorp Capital Deuda Corporativa",                    "admin": "Credicorp Capital",       "inicio_esperado": "2016-01-01"},
+    {"fund_id": "DAVIVIENDA_RF_MEDIANO",    "cat": "RF_LARGO", "rol": "core", "codes": [59076],         "clase": 501, "nombre": "FIC Renta Fija Mediano Plazo Multiescala",               "admin": "Corredores Davivienda",   "inicio_esperado": "2017-08-01"},
+    {"fund_id": "UNIVERSITAS_CPP",          "cat": "RF_LARGO", "rol": "core", "codes": [61583],         "clase": 800, "nombre": "Universitas FIC Abierto CPP",                            "admin": "Fiduciaria Caja Social",  "inicio_esperado": "2016-01-01"},
+    {"fund_id": "DAVIVIENDA_RF_LARGO",      "cat": "RF_LARGO", "rol": "late", "codes": [78886],         "clase": 501, "nombre": "FIC Renta Fija Largo Plazo",                             "admin": "Corredores Davivienda",   "inicio_esperado": "2019-02-01"},
+    {"fund_id": "ISHARES_COLCAP",           "cat": "RV_LOCAL", "rol": "core", "codes": [60678],         "clase": 800, "nombre": "Fondo Bursátil iShares MSCI COLCAP",                     "admin": "Citivalores",             "inicio_esperado": "2016-01-01"},
+    {"fund_id": "GLOBALX_COLSELECT",        "cat": "RV_LOCAL", "rol": "core", "codes": [43502, 129433], "clase": 800, "nombre": "Fondo Bursátil Global X Colombia Select de S&P",         "admin": "Fiduaval (antes ent. 22)", "inicio_esperado": "2016-01-01"},
+    {"fund_id": "CREDICORP_ACC_COLOMBIA",   "cat": "RV_LOCAL", "rol": "core", "codes": [59105],         "clase": 800, "nombre": "Credicorp Capital Acciones Colombia",                    "admin": "Credicorp Capital",       "inicio_esperado": "2016-01-01"},
+    {"fund_id": "ACCIVAL_ACC_DINAMICO",     "cat": "RV_LOCAL", "rol": "core", "codes": [58735],         "clase": 800, "nombre": "FIC Abierto Accival Acciones Dinámico",                  "admin": "Acciones y Valores",      "inicio_esperado": "2016-01-01"},
+    {"fund_id": "CREDICORP_ACC_GLOBALES",   "cat": "RV_INTL",  "rol": "core", "codes": [58918],         "clase": 800, "nombre": "Credicorp Capital Acciones Globales",                    "admin": "Credicorp Capital",       "inicio_esperado": "2016-01-01"},
+    {"fund_id": "DAVIVIENDA_ACC_GLOBALES",  "cat": "RV_INTL",  "rol": "core", "codes": [59079],         "clase": 501, "nombre": "FIC Acciones Globales",                                  "admin": "Corredores Davivienda",   "inicio_esperado": "2016-01-01"},
+    {"fund_id": "DAVIVIENDA_DIV_INTL",      "cat": "RV_INTL",  "rol": "core", "codes": [78888],         "clase": 501, "nombre": "FIC Diversificado Internacional",                        "admin": "Corredores Davivienda",   "inicio_esperado": "2018-11-01"},
+    {"fund_id": "RENTA_SOSTENIBLE_GLOBAL",  "cat": "RV_INTL",  "rol": "late", "codes": [59740],         "clase": 803, "nombre": "FIC Abierto Renta Sostenible Global",                    "admin": "Valores Bancolombia",     "inicio_esperado": "2021-04-01"},
+    {"fund_id": "RENTA_BALANCEADO",         "cat": "MIXTO",    "rol": "core", "codes": [3078],          "clase": 800, "nombre": "FIC Abierto Renta Balanceado",                           "admin": "Fiduciaria Bancolombia",  "inicio_esperado": "2016-01-01"},
+    {"fund_id": "BBVA_BALANCEADO_GLOBAL",   "cat": "MIXTO",    "rol": "core", "codes": [69368],         "clase": 800, "nombre": "FIC Abierto CPP BBVA AM Estrategia Balanceado Global",   "admin": "BBVA AM",                 "inicio_esperado": "2017-05-01"},
+    {"fund_id": "DAVIVIENDA_DIV_MODERADO",  "cat": "MIXTO",    "rol": "core", "codes": [59078],         "clase": 501, "nombre": "FIC Diversificado Moderado",                             "admin": "Corredores Davivienda",   "inicio_esperado": "2017-08-01"},
+    {"fund_id": "CREDICORP_BALANCEADO_COL", "cat": "MIXTO",    "rol": "late", "codes": [93223],         "clase": 800, "nombre": "Credicorp Capital Balanceado Colombia",                  "admin": "Credicorp Capital",       "inicio_esperado": "2020-07-01"}
+  ]
+}

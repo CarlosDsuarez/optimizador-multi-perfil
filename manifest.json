@@ -1,0 +1,2668 @@
+{
+  "generated_at": "2026-09-11T19:47:45Z",
+  "pipeline": {
+    "module": "data/ingest_sfc.py",
+    "version": "0.1.0",
+    "python": "3.14.7",
+    "pandas": "3.0.3",
+    "holidays": "0.104"
+  },
+  "source": {
+    "domain": "www.datos.gov.co",
+    "datasets": {
+      "series": "qhpu-8ixx",
+      "metadata": "djw7-ur7t"
+    },
+    "base_url": "https://www.datos.gov.co/resource/{}.json",
+    "app_token_used": false,
+    "retry_policy": {
+      "max_attempts": 6,
+      "base_wait_s": 2.0,
+      "max_wait_s": 60.0,
+      "timeout_s": 120.0,
+      "retry_on": [
+        "Timeout",
+        "ConnectionError",
+        "HTTP 429",
+        "HTTP 500",
+        "HTTP 502",
+        "HTTP 503",
+        "HTTP 504"
+      ]
+    }
+  },
+  "universe": {
+    "config_path": "data/universe.json",
+    "sha256": "2fd0c673f3b2c12bc3219345e97ce01fb4bc50bb34d4930a58c7fb37f77ecd16",
+    "n_funds": 21,
+    "fund_ids": [
+      "FIDUCUENTA",
+      "FIDUPREVISORA_LIQUIDEZ",
+      "CREDICORP_ALTA_LIQUIDEZ",
+      "BBVA_EFECTIVO",
+      "PLAN_SEMILLA",
+      "CREDICORP_DEUDA_CORP",
+      "DAVIVIENDA_RF_MEDIANO",
+      "UNIVERSITAS_CPP",
+      "DAVIVIENDA_RF_LARGO",
+      "ISHARES_COLCAP",
+      "GLOBALX_COLSELECT",
+      "CREDICORP_ACC_COLOMBIA",
+      "ACCIVAL_ACC_DINAMICO",
+      "CREDICORP_ACC_GLOBALES",
+      "DAVIVIENDA_ACC_GLOBALES",
+      "DAVIVIENDA_DIV_INTL",
+      "RENTA_SOSTENIBLE_GLOBAL",
+      "RENTA_BALANCEADO",
+      "BBVA_BALANCEADO_GLOBAL",
+      "DAVIVIENDA_DIV_MODERADO",
+      "CREDICORP_BALANCEADO_COL"
+    ],
+    "start_date": "2016-01-01"
+  },
+  "raw": {
+    "data/raw/qhpu-8ixx_2852.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=2852",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 3901,
+      "sha256": "15941c4e3eb688735bc4237fab9af8586a462bf903ce7cc53403f5a47d92ed0f",
+      "bytes": 623147
+    },
+    "data/raw/qhpu-8ixx_3049.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=3049",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 3901,
+      "sha256": "347339cd120191363a5a61a31329a19686380eecd65e2005a81e7f477ad38766",
+      "bytes": 572828
+    },
+    "data/raw/qhpu-8ixx_3078.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=3078",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 3901,
+      "sha256": "5d492fe04327a45de9e9663d89026684918cf2868f181245e5b1be91f5674bf8",
+      "bytes": 552152
+    },
+    "data/raw/qhpu-8ixx_8734.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=8734",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 32950,
+      "sha256": "4806f97afa06e6356c95ffbcc6a69151251140b5f7309e2aaaff5dcfdd386bee",
+      "bytes": 3785916
+    },
+    "data/raw/qhpu-8ixx_11407.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=11407",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 12301,
+      "sha256": "c7feabbb7fc0ddb359ec33f622bdb083d23ca7b6a452e208a1c2a1db2dd6043d",
+      "bytes": 1376203
+    },
+    "data/raw/qhpu-8ixx_43502.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=43502",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 3652,
+      "sha256": "1e3b271f15b24bd217b8d10e1af6005802c4713cc456d55aaf1df90861248608",
+      "bytes": 362342
+    },
+    "data/raw/qhpu-8ixx_58735.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=58735",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 4338,
+      "sha256": "4bfcbe10ac4264b2121b7e5a8aab75427c3f5fb6abad67a9e0cd82c705a0e924",
+      "bytes": 514051
+    },
+    "data/raw/qhpu-8ixx_58756.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=58756",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 13628,
+      "sha256": "2d6f48160094db1cab558ca3febda8e05afa57b7c330fea880da8d81066ac0b3",
+      "bytes": 1791634
+    },
+    "data/raw/qhpu-8ixx_58883.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=58883",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 8144,
+      "sha256": "4e203c84cc0798b40df0f93d995a93a49c77ba140dcbe0d701230ba56375975c",
+      "bytes": 956252
+    },
+    "data/raw/qhpu-8ixx_58918.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=58918",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 5975,
+      "sha256": "28d2fa9b92977642a288cb7c2533dc32f7595d58d12ab585050697213cc6b5b5",
+      "bytes": 672788
+    },
+    "data/raw/qhpu-8ixx_59076.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=59076",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 8026,
+      "sha256": "ed7bdaf1ccf38201c3901b538c74ec9e6139b6e822ce3d1f9133e22bfa7bf1de",
+      "bytes": 863844
+    },
+    "data/raw/qhpu-8ixx_59078.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=59078",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 6300,
+      "sha256": "bda9c5441f4e072ded98f87fa64777dccdf61e02e62553de8d5cc9cb50eab7f8",
+      "bytes": 684706
+    },
+    "data/raw/qhpu-8ixx_59079.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=59079",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 9750,
+      "sha256": "956873268733ccb24de01f366749a9de06912f0aec7424a2f868d8657efcdd04",
+      "bytes": 966990
+    },
+    "data/raw/qhpu-8ixx_59105.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=59105",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 7849,
+      "sha256": "eee02af8fafd77d2deed6a5ae5581e85cdf8be71b9e89cbd7225cbfd1b45e5ee",
+      "bytes": 889376
+    },
+    "data/raw/qhpu-8ixx_59740.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=59740",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 6842,
+      "sha256": "1d515821bb41ead66de2776123077061bad5e774b65f45f4d6dbee4761877328",
+      "bytes": 830305
+    },
+    "data/raw/qhpu-8ixx_60678.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=60678",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 3904,
+      "sha256": "23ede2e5414ac4768944f721901916304586ca5a2d2d78156a939f6186a9d4b3",
+      "bytes": 422782
+    },
+    "data/raw/qhpu-8ixx_61583.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=61583",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 3903,
+      "sha256": "47829b014f5e421ab670f34539a82605c701cd71aa875769d492130a72ae1f14",
+      "bytes": 541646
+    },
+    "data/raw/qhpu-8ixx_69368.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=69368",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 3424,
+      "sha256": "707204c0ab62b48668e4b4c26f9cf920e59107be87066b9ae701afee173797d1",
+      "bytes": 426156
+    },
+    "data/raw/qhpu-8ixx_78886.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=78886",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 3699,
+      "sha256": "c07e0fb2bd4fb0aeab22951c21dbd499d6c39feb1972b88b5febac86b205bb47",
+      "bytes": 433960
+    },
+    "data/raw/qhpu-8ixx_78888.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=78888",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 2869,
+      "sha256": "98a9a5c9c16c3443904a98c4d6b4f5b7d77a17defbce97abf7c5b9c487454635",
+      "bytes": 338404
+    },
+    "data/raw/qhpu-8ixx_93223.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=93223",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 2733,
+      "sha256": "f6ddae2fca1f5248cb15c36950eac861ddfcebddc605d9b58e16768f3dee8bed",
+      "bytes": 314693
+    },
+    "data/raw/qhpu-8ixx_129433.parquet": {
+      "dataset": "qhpu-8ixx",
+      "query_params": {
+        "$where": "codigo_negocio=129433",
+        "$order": "fecha_corte,tipo_participacion"
+      },
+      "page_size": 50000,
+      "pages": 1,
+      "rows": 251,
+      "sha256": "c70f4309d4a742204994e636e23612e7bb032f3d4da72acb67f649c99c1b4f4c",
+      "bytes": 41225
+    },
+    "data/raw/djw7-ur7t_metadata.parquet": {
+      "dataset": "djw7-ur7t",
+      "query_params": [
+        {
+          "$where": "codigo_negocio=2852 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=11407 AND tipo_participacion=518",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=58756 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=8734 AND tipo_participacion=501",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=3049 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=58883 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=59076 AND tipo_participacion=501",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=61583 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=78886 AND tipo_participacion=501",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=60678 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=129433 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=59105 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=58735 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=58918 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=59079 AND tipo_participacion=501",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=78888 AND tipo_participacion=501",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=59740 AND tipo_participacion=803",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=3078 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=69368 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=59078 AND tipo_participacion=501",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        },
+        {
+          "$where": "codigo_negocio=93223 AND tipo_participacion=800",
+          "$order": "fecha_corte DESC",
+          "$limit": 1
+        }
+      ],
+      "page_size": null,
+      "pages": 1,
+      "rows": 21,
+      "sha256": "4840386b886f26914650ae1d30447f0ed41457271e9e2317a0d192a11efa23e8",
+      "bytes": 21919
+    }
+  },
+  "cleaned": {
+    "data/cleaned/returns_matrix.parquet": {
+      "sha256": "b93b01d1c8aabea2867610e44c74da375f65805e0ca6d26bb0eaf039253fb968",
+      "bytes": 506921,
+      "rows": 2614,
+      "columns": [
+        "FIDUCUENTA",
+        "FIDUPREVISORA_LIQUIDEZ",
+        "CREDICORP_ALTA_LIQUIDEZ",
+        "BBVA_EFECTIVO",
+        "PLAN_SEMILLA",
+        "CREDICORP_DEUDA_CORP",
+        "DAVIVIENDA_RF_MEDIANO",
+        "UNIVERSITAS_CPP",
+        "DAVIVIENDA_RF_LARGO",
+        "ISHARES_COLCAP",
+        "GLOBALX_COLSELECT",
+        "CREDICORP_ACC_COLOMBIA",
+        "ACCIVAL_ACC_DINAMICO",
+        "CREDICORP_ACC_GLOBALES",
+        "DAVIVIENDA_ACC_GLOBALES",
+        "DAVIVIENDA_DIV_INTL",
+        "RENTA_SOSTENIBLE_GLOBAL",
+        "RENTA_BALANCEADO",
+        "BBVA_BALANCEADO_GLOBAL",
+        "DAVIVIENDA_DIV_MODERADO",
+        "CREDICORP_BALANCEADO_COL"
+      ],
+      "index": "2016-01-04..2026-09-08"
+    },
+    "data/cleaned/prices_matrix.parquet": {
+      "sha256": "51e78ed4a6257bfb4761740e01d41698dd41876fbd551a2570b8e3e64dab3c83",
+      "bytes": 507054,
+      "rows": 2614,
+      "columns": [
+        "FIDUCUENTA",
+        "FIDUPREVISORA_LIQUIDEZ",
+        "CREDICORP_ALTA_LIQUIDEZ",
+        "BBVA_EFECTIVO",
+        "PLAN_SEMILLA",
+        "CREDICORP_DEUDA_CORP",
+        "DAVIVIENDA_RF_MEDIANO",
+        "UNIVERSITAS_CPP",
+        "DAVIVIENDA_RF_LARGO",
+        "ISHARES_COLCAP",
+        "GLOBALX_COLSELECT",
+        "CREDICORP_ACC_COLOMBIA",
+        "ACCIVAL_ACC_DINAMICO",
+        "CREDICORP_ACC_GLOBALES",
+        "DAVIVIENDA_ACC_GLOBALES",
+        "DAVIVIENDA_DIV_INTL",
+        "RENTA_SOSTENIBLE_GLOBAL",
+        "RENTA_BALANCEADO",
+        "BBVA_BALANCEADO_GLOBAL",
+        "DAVIVIENDA_DIV_MODERADO",
+        "CREDICORP_BALANCEADO_COL"
+      ],
+      "index": "2016-01-04..2026-09-08"
+    },
+    "data/cleaned/funds_master.parquet": {
+      "sha256": "dbc7e4ecf7eb193b3347ae19db1694af636f44099858f9fe729e771eb86c9534",
+      "bytes": 12206,
+      "rows": 21,
+      "columns": [
+        "fund_id",
+        "cat",
+        "rol",
+        "clase",
+        "codes",
+        "nombre",
+        "admin",
+        "inicio_esperado",
+        "first_date",
+        "last_date",
+        "n_obs",
+        "api_nombre_patrimonio",
+        "api_nombre_entidad",
+        "api_nombre_subtipo_patrimonio",
+        "api_numero_inversionistas"
+      ]
+    }
+  },
+  "dedupe": {
+    "key": [
+      "fecha_corte",
+      "codigo_negocio",
+      "tipo_participacion"
+    ],
+    "rows_in": 152241,
+    "rows_out": 152241,
+    "duplicates_removed": 0,
+    "by_code": {}
+  },
+  "quality": {
+    "invalid_vu_rows_ignored": [
+      {
+        "codigo_negocio": 11407,
+        "tipo_participacion": 520,
+        "n": 1,
+        "dates": [
+          "2018-02-07"
+        ]
+      }
+    ]
+  },
+  "code_mappings": [
+    {
+      "fund_id": "GLOBALX_COLSELECT",
+      "from_code": 43502,
+      "to_code": 129433,
+      "last_date_from": "2025-12-31",
+      "first_date_to": "2026-01-01",
+      "vu_from": 22826.985868,
+      "vu_to": 22826.985868,
+      "rel_diff": 0.0,
+      "gap_days": 1
+    }
+  ],
+  "calendar": {
+    "type": "Colombian business days: Mon-Fri excluding holidays.CO",
+    "holidays_version": "0.104",
+    "start": "2016-01-04",
+    "end": "2026-09-08",
+    "n_days": 2614,
+    "data_end": "2026-09-08"
+  },
+  "returns": {
+    "formula": "log(VU_t / VU_prev_observed_business_day)",
+    "source_field": "valor_unidad_operaciones",
+    "class_selection": "tipo_participacion per fund from universe.json",
+    "nan_policy": "returns[t] = log(VU[t] / VU[prev]) where prev is the most recent *observed* business day. (a) Business days before a fund's first observation or after its last are NaN (fund not in universe; point-in-time membership is handled downstream). (b) Business days inside a fund's life with no observation are NaN — no imputation. (c) On the first observed day after such a gap the return bridges the whole gap (cumulative log return since the last observation) so the NAV path stays continuous; every bridged cell is listed in manifest['gap_log'] with the number of missing business days so downstream can mask it. (d) Weekend/holiday accrual is folded into the next business day's return (not a gap)."
+  },
+  "gap_log": [
+    {
+      "fund_id": "FIDUCUENTA",
+      "date": "2016-11-17",
+      "prev_date": "2016-11-15",
+      "missing_bdays": 1,
+      "bridged_log_return": 0.0003635420498615193
+    },
+    {
+      "fund_id": "FIDUCUENTA",
+      "date": "2016-12-27",
+      "prev_date": "2016-12-23",
+      "missing_bdays": 1,
+      "bridged_log_return": 0.000841180306573133
+    },
+    {
+      "fund_id": "FIDUCUENTA",
+      "date": "2018-03-23",
+      "prev_date": "2018-03-21",
+      "missing_bdays": 1,
+      "bridged_log_return": 0.0001909632542644568
+    },
+    {
+      "fund_id": "FIDUPREVISORA_LIQUIDEZ",
+      "date": "2018-11-29",
+      "prev_date": "2018-10-29",
+      "missing_bdays": 20,
+      "bridged_log_return": 0.0028695013205660993
+    },
+    {
+      "fund_id": "BBVA_EFECTIVO",
+      "date": "2018-03-23",
+      "prev_date": "2018-03-21",
+      "missing_bdays": 1,
+      "bridged_log_return": 0.00019657584971755423
+    },
+    {
+      "fund_id": "PLAN_SEMILLA",
+      "date": "2016-11-17",
+      "prev_date": "2016-11-15",
+      "missing_bdays": 1,
+      "bridged_log_return": 7.224930144743508e-05
+    },
+    {
+      "fund_id": "PLAN_SEMILLA",
+      "date": "2016-12-27",
+      "prev_date": "2016-12-23",
+      "missing_bdays": 1,
+      "bridged_log_return": 0.0006516436768083762
+    },
+    {
+      "fund_id": "PLAN_SEMILLA",
+      "date": "2018-03-23",
+      "prev_date": "2018-03-21",
+      "missing_bdays": 1,
+      "bridged_log_return": -8.759613806770013e-05
+    },
+    {
+      "fund_id": "UNIVERSITAS_CPP",
+      "date": "2018-03-23",
+      "prev_date": "2018-03-21",
+      "missing_bdays": 1,
+      "bridged_log_return": -0.0018114169639256105
+    },
+    {
+      "fund_id": "GLOBALX_COLSELECT",
+      "date": "2018-03-23",
+      "prev_date": "2018-03-21",
+      "missing_bdays": 1,
+      "bridged_log_return": -0.014829677585094386
+    },
+    {
+      "fund_id": "RENTA_BALANCEADO",
+      "date": "2016-11-17",
+      "prev_date": "2016-11-15",
+      "missing_bdays": 1,
+      "bridged_log_return": 0.0021692794007474154
+    },
+    {
+      "fund_id": "RENTA_BALANCEADO",
+      "date": "2016-12-27",
+      "prev_date": "2016-12-23",
+      "missing_bdays": 1,
+      "bridged_log_return": 0.003088204656761256
+    },
+    {
+      "fund_id": "RENTA_BALANCEADO",
+      "date": "2018-03-23",
+      "prev_date": "2018-03-21",
+      "missing_bdays": 1,
+      "bridged_log_return": -0.010661273509367122
+    },
+    {
+      "fund_id": "BBVA_BALANCEADO_GLOBAL",
+      "date": "2018-03-23",
+      "prev_date": "2018-03-21",
+      "missing_bdays": 1,
+      "bridged_log_return": -0.023412937489219816
+    }
+  ],
+  "sufficiency": {
+    "thresholds": {
+      "max_start_delay_days": 31,
+      "min_completeness": 0.99,
+      "max_gap_days": 31,
+      "max_end_lag_days": 3,
+      "splice_tolerance": 0.02
+    },
+    "data_end": "2026-09-08",
+    "report": [
+      {
+        "fund_id": "FIDUCUENTA",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3901,
+        "completeness": 0.999232,
+        "max_gap_days": 1,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "FIDUPREVISORA_LIQUIDEZ",
+        "first_date": "2018-02-07",
+        "last_date": "2026-09-08",
+        "n_obs": 3106,
+        "completeness": 0.990434,
+        "max_gap_days": 30,
+        "expected_start": "2018-03-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "CREDICORP_ALTA_LIQUIDEZ",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3904,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "BBVA_EFECTIVO",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3903,
+        "completeness": 0.999744,
+        "max_gap_days": 1,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "PLAN_SEMILLA",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3901,
+        "completeness": 0.999232,
+        "max_gap_days": 1,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "CREDICORP_DEUDA_CORP",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3902,
+        "completeness": 0.999488,
+        "max_gap_days": 2,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "DAVIVIENDA_RF_MEDIANO",
+        "first_date": "2017-07-04",
+        "last_date": "2026-09-08",
+        "n_obs": 3354,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2017-08-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "UNIVERSITAS_CPP",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3903,
+        "completeness": 0.999744,
+        "max_gap_days": 1,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "DAVIVIENDA_RF_LARGO",
+        "first_date": "2019-02-01",
+        "last_date": "2026-09-08",
+        "n_obs": 2777,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2019-02-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "ISHARES_COLCAP",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3904,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "GLOBALX_COLSELECT",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3903,
+        "completeness": 0.999744,
+        "max_gap_days": 1,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "CREDICORP_ACC_COLOMBIA",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3904,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "ACCIVAL_ACC_DINAMICO",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3904,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "CREDICORP_ACC_GLOBALES",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3904,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "DAVIVIENDA_ACC_GLOBALES",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3904,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "DAVIVIENDA_DIV_INTL",
+        "first_date": "2018-11-01",
+        "last_date": "2026-09-08",
+        "n_obs": 2869,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2018-11-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "RENTA_SOSTENIBLE_GLOBAL",
+        "first_date": "2021-03-18",
+        "last_date": "2026-09-08",
+        "n_obs": 2001,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2021-04-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "RENTA_BALANCEADO",
+        "first_date": "2016-01-01",
+        "last_date": "2026-09-08",
+        "n_obs": 3901,
+        "completeness": 0.999232,
+        "max_gap_days": 1,
+        "expected_start": "2016-01-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "BBVA_BALANCEADO_GLOBAL",
+        "first_date": "2017-04-24",
+        "last_date": "2026-09-08",
+        "n_obs": 3424,
+        "completeness": 0.999708,
+        "max_gap_days": 1,
+        "expected_start": "2017-05-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "DAVIVIENDA_DIV_MODERADO",
+        "first_date": "2017-07-04",
+        "last_date": "2026-09-08",
+        "n_obs": 3354,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2017-08-01",
+        "ok": true,
+        "failures": []
+      },
+      {
+        "fund_id": "CREDICORP_BALANCEADO_COL",
+        "first_date": "2020-06-27",
+        "last_date": "2026-09-08",
+        "n_obs": 2265,
+        "completeness": 1.0,
+        "max_gap_days": 0,
+        "expected_start": "2020-07-01",
+        "ok": true,
+        "failures": []
+      }
+    ]
+  },
+  "metadata_crosscheck": [
+    {
+      "fund_id": "FIDUCUENTA",
+      "date": "2026-09-08",
+      "vu_series": 48176.723255,
+      "vu_metadata": 48176.723255,
+      "status": "match"
+    },
+    {
+      "fund_id": "FIDUPREVISORA_LIQUIDEZ",
+      "date": "2026-09-08",
+      "vu_series": 26222.972064,
+      "vu_metadata": 26222.972064,
+      "status": "match"
+    },
+    {
+      "fund_id": "CREDICORP_ALTA_LIQUIDEZ",
+      "date": "2026-09-08",
+      "vu_series": 6759.29107,
+      "vu_metadata": 6759.29107,
+      "status": "match"
+    },
+    {
+      "fund_id": "BBVA_EFECTIVO",
+      "date": "2026-09-08",
+      "vu_series": 3912.932669,
+      "vu_metadata": 3912.932669,
+      "status": "match"
+    },
+    {
+      "fund_id": "PLAN_SEMILLA",
+      "date": "2026-09-08",
+      "vu_series": 36127.586238,
+      "vu_metadata": 36127.586238,
+      "status": "match"
+    },
+    {
+      "fund_id": "CREDICORP_DEUDA_CORP",
+      "date": "2026-09-08",
+      "vu_series": 49538.387087,
+      "vu_metadata": 49538.387087,
+      "status": "match"
+    },
+    {
+      "fund_id": "DAVIVIENDA_RF_MEDIANO",
+      "date": "2026-09-08",
+      "vu_series": 37041.033388,
+      "vu_metadata": 37041.033388,
+      "status": "match"
+    },
+    {
+      "fund_id": "UNIVERSITAS_CPP",
+      "date": "2026-09-08",
+      "vu_series": 16305.639019,
+      "vu_metadata": 16305.639019,
+      "status": "match"
+    },
+    {
+      "fund_id": "DAVIVIENDA_RF_LARGO",
+      "date": "2026-09-08",
+      "vu_series": 16172.243443,
+      "vu_metadata": 16172.243443,
+      "status": "match"
+    },
+    {
+      "fund_id": "ISHARES_COLCAP",
+      "date": "2026-09-08",
+      "vu_series": 25507.783642,
+      "vu_metadata": 25507.783642,
+      "status": "match"
+    },
+    {
+      "fund_id": "GLOBALX_COLSELECT",
+      "date": "2026-09-08",
+      "vu_series": 29176.457519,
+      "vu_metadata": 29176.457519,
+      "status": "match"
+    },
+    {
+      "fund_id": "CREDICORP_ACC_COLOMBIA",
+      "date": "2026-09-08",
+      "vu_series": 43869.038699,
+      "vu_metadata": 43869.038699,
+      "status": "match"
+    },
+    {
+      "fund_id": "ACCIVAL_ACC_DINAMICO",
+      "date": "2026-09-08",
+      "vu_series": 23457.713797,
+      "vu_metadata": 23457.713797,
+      "status": "match"
+    },
+    {
+      "fund_id": "CREDICORP_ACC_GLOBALES",
+      "date": "2026-09-08",
+      "vu_series": 28531.394342,
+      "vu_metadata": 28531.394342,
+      "status": "match"
+    },
+    {
+      "fund_id": "DAVIVIENDA_ACC_GLOBALES",
+      "date": "2026-09-08",
+      "vu_series": 9941.254142,
+      "vu_metadata": 9941.254142,
+      "status": "match"
+    },
+    {
+      "fund_id": "DAVIVIENDA_DIV_INTL",
+      "date": "2026-09-08",
+      "vu_series": 14980.884757,
+      "vu_metadata": 14980.884757,
+      "status": "match"
+    },
+    {
+      "fund_id": "RENTA_SOSTENIBLE_GLOBAL",
+      "date": "2026-09-08",
+      "vu_series": 29035.878756,
+      "vu_metadata": 29035.878756,
+      "status": "match"
+    },
+    {
+      "fund_id": "RENTA_BALANCEADO",
+      "date": "2026-09-08",
+      "vu_series": 24302.056164,
+      "vu_metadata": 24302.056164,
+      "status": "match"
+    },
+    {
+      "fund_id": "BBVA_BALANCEADO_GLOBAL",
+      "date": "2026-09-08",
+      "vu_series": 24476.457632,
+      "vu_metadata": 24476.457632,
+      "status": "match"
+    },
+    {
+      "fund_id": "DAVIVIENDA_DIV_MODERADO",
+      "date": "2026-09-08",
+      "vu_series": 27954.150991,
+      "vu_metadata": 27954.150991,
+      "status": "match"
+    },
+    {
+      "fund_id": "CREDICORP_BALANCEADO_COL",
+      "date": "2026-09-08",
+      "vu_series": 20354.191894,
+      "vu_metadata": 20354.191894,
+      "status": "match"
+    }
+  ],
+  "backtest": {
+    "generated_at": "2026-09-11T20:48:43Z",
+    "module": "backtest/walk_forward.py",
+    "version": "0.1.0",
+    "libraries": {
+      "pandas": "3.0.3",
+      "numpy": "2.5.3",
+      "riskfolio-lib": "7.3.0",
+      "PyPortfolioOpt": "1.6.0",
+      "cvxpy": "1.9.1"
+    },
+    "params": {
+      "estimation_start": "2018-01-01",
+      "oos_start": "2020-01-01",
+      "first_rebalance": "2019-12-31",
+      "last_rebalance": "2026-06-30",
+      "first_oos_day": "2020-01-02",
+      "oos_end": "2026-09-08",
+      "end_requested": null,
+      "window_months": 24,
+      "window_kind": "rolling",
+      "rebalance": "quarterly",
+      "n_rebalances": 27,
+      "n_oos_days": 1635,
+      "cost_bps": 10.0,
+      "cost_label": "[ESPECULATIVO]",
+      "cost_rationale": "El gate (docs/fase0_data_gate.md §4.3) documenta 0 comisiones explícitas de entrada/salida en FICs abiertos (la comisión de administración ya está descontada en el valor de unidad). 10 bps por unidad de notional transado es un proxy conservador de fricción operativa (cash drag de liquidación T+n, penalidades por pactos de permanencia) sin fuente confirmada; sensibilidad con --cost-bps.",
+      "cost_definition": "sum(|w_target - w_drift|) * cost_bps / 1e4, descontado del NAV el primer día del nuevo periodo",
+      "turnover_definition": "one-way: 0.5 * sum(|w_target - w_drift|), w_drift = pesos previos derivados por precio",
+      "rf_annual": 0.0,
+      "periods_per_year": 252,
+      "cov_method": "ledoit",
+      "max_staleness_bdays": 5,
+      "min_active_funds": 2,
+      "methods": [
+        "markowitz",
+        "risk_parity",
+        "hrp"
+      ],
+      "profiles": [
+        "conservador",
+        "moderado",
+        "agresivo"
+      ],
+      "min_rv": null,
+      "nan_policy": "Celdas NaN intra-vida (manifest.json → gap_log) se tratan como retorno 0 tanto en la ventana de estimación como en el P&L; el retorno puenteado del primer día tras la brecha ya acumula el movimiento.",
+      "tag": ""
+    },
+    "inputs": {
+      "data/cleaned/returns_matrix.parquet": {
+        "sha256": "b93b01d1c8aabea2867610e44c74da375f65805e0ca6d26bb0eaf039253fb968",
+        "bytes": 506921
+      },
+      "data/universe.json": {
+        "sha256": "2fd0c673f3b2c12bc3219345e97ce01fb4bc50bb34d4930a58c7fb37f77ecd16",
+        "bytes": 5848
+      }
+    },
+    "rebalance_dates": [
+      "2019-12-31",
+      "2020-03-31",
+      "2020-06-30",
+      "2020-09-30",
+      "2020-12-31",
+      "2021-03-31",
+      "2021-06-30",
+      "2021-09-30",
+      "2021-12-31",
+      "2022-03-31",
+      "2022-06-30",
+      "2022-09-30",
+      "2022-12-30",
+      "2023-03-31",
+      "2023-06-30",
+      "2023-09-29",
+      "2023-12-29",
+      "2024-03-27",
+      "2024-06-28",
+      "2024-09-30",
+      "2024-12-31",
+      "2025-03-31",
+      "2025-06-27",
+      "2025-09-30",
+      "2025-12-31",
+      "2026-03-31",
+      "2026-06-30"
+    ],
+    "n_active_by_rebalance": {
+      "2019-12-31": 16,
+      "2020-03-31": 17,
+      "2020-06-30": 17,
+      "2020-09-30": 17,
+      "2020-12-31": 18,
+      "2021-03-31": 19,
+      "2021-06-30": 19,
+      "2021-09-30": 19,
+      "2021-12-31": 19,
+      "2022-03-31": 19,
+      "2022-06-30": 19,
+      "2022-09-30": 20,
+      "2022-12-30": 20,
+      "2023-03-31": 21,
+      "2023-06-30": 21,
+      "2023-09-29": 21,
+      "2023-12-29": 21,
+      "2024-03-27": 21,
+      "2024-06-28": 21,
+      "2024-09-30": 21,
+      "2024-12-31": 21,
+      "2025-03-31": 21,
+      "2025-06-27": 21,
+      "2025-09-30": 21,
+      "2025-12-31": 21,
+      "2026-03-31": 21,
+      "2026-06-30": 21
+    },
+    "outputs": {
+      "results/backtest_summary.parquet": {
+        "sha256": "5f9c51e35948701e04d2975be1adfb4aad5d431eb2b790ceac007c5cd828d849",
+        "bytes": 58749,
+        "rows": 9
+      },
+      "results/backtest_weights.parquet": {
+        "sha256": "951745b7ffa0eedaa2b1c7adafdad6ba655a8641ed7e9896f5cc3c3878c8a66f",
+        "bytes": 56325,
+        "rows": 5103
+      },
+      "results/backtest_daily.parquet": {
+        "sha256": "0016ac39f05e6d072a401841e60c9290d16c3c66ca4badcf8eedefa13920ca88",
+        "bytes": 322140,
+        "rows": 14715
+      },
+      "results/backtest_summary.md": {
+        "sha256": "8e4d45864a9a3dbfed9d12572fbef980c4e52de6552c0e950f57c04ecb2b115b",
+        "bytes": 4420
+      }
+    },
+    "metrics": {
+      "markowitz|conservador": {
+        "ann_return": 0.07229768330897834,
+        "volatility": 0.009724461579776507,
+        "sharpe": 7.184020277944723,
+        "max_drawdown": -0.029441130005350646,
+        "cvar_95": -0.0011079575600608617,
+        "avg_turnover": 0.060451716102255665,
+        "total_cost": 0.004143489237317295,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5728561065468754
+      },
+      "markowitz|moderado": {
+        "ann_return": 0.07307517005147579,
+        "volatility": 0.010372821481719271,
+        "sharpe": 6.8055008701646855,
+        "max_drawdown": -0.029441123920116885,
+        "cvar_95": -0.0012584001563261129,
+        "avg_turnover": 0.04767114008620721,
+        "total_cost": 0.0034788992844827747,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5802700281681659
+      },
+      "markowitz|agresivo": {
+        "ann_return": 0.07307515395605857,
+        "volatility": 0.01037282117705693,
+        "sharpe": 6.8054996233186715,
+        "max_drawdown": -0.029441123916427503,
+        "cvar_95": -0.0012584002755294471,
+        "avg_turnover": 0.04767124191889926,
+        "total_cost": 0.0034789045797827614,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5802698743808228
+      },
+      "risk_parity|conservador": {
+        "ann_return": 0.07824174266014405,
+        "volatility": 0.016215465177509398,
+        "sharpe": 4.654482412851225,
+        "max_drawdown": -0.04291684163852094,
+        "cvar_95": -0.0020853628752810533,
+        "avg_turnover": 0.028651212208915314,
+        "total_cost": 0.002489863034863597,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6302921531390102
+      },
+      "risk_parity|moderado": {
+        "ann_return": 0.07824187225330936,
+        "volatility": 0.016215465075076936,
+        "sharpe": 4.654489856408374,
+        "max_drawdown": -0.04291687798460564,
+        "cvar_95": -0.002085361405456454,
+        "avg_turnover": 0.02864982818227611,
+        "total_cost": 0.002489791065478358,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6302934244410798
+      },
+      "risk_parity|agresivo": {
+        "ann_return": 0.07824175576958226,
+        "volatility": 0.016215453064324918,
+        "sharpe": 4.654486627700606,
+        "max_drawdown": -0.042916829293051295,
+        "cvar_95": -0.0020853613255560535,
+        "avg_turnover": 0.02865002336883789,
+        "total_cost": 0.00248980121517957,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6302922817418635
+      },
+      "hrp|conservador": {
+        "ann_return": 0.07515365155219689,
+        "volatility": 0.010187464677896895,
+        "sharpe": 7.119136769738063,
+        "max_drawdown": -0.02967633177349638,
+        "cvar_95": -0.0010754876591473814,
+        "avg_turnover": 0.057063373489056754,
+        "total_cost": 0.003967295421430951,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6002352154102057
+      },
+      "hrp|moderado": {
+        "ann_return": 0.07600810471660369,
+        "volatility": 0.01033892837226766,
+        "sharpe": 7.091851811863377,
+        "max_drawdown": -0.02967412495140309,
+        "cvar_95": -0.001083202266317288,
+        "avg_turnover": 0.05343437932498264,
+        "total_cost": 0.0037785877248990743,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6085044622576365
+      },
+      "hrp|agresivo": {
+        "ann_return": 0.07600782932989847,
+        "volatility": 0.010338906645075778,
+        "sharpe": 7.091841932095799,
+        "max_drawdown": -0.029674187904385696,
+        "cvar_95": -0.0010831951438481748,
+        "avg_turnover": 0.0534347075189655,
+        "total_cost": 0.0037786047909861673,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.608501791302404
+      }
+    }
+  },
+  "backtest_expanding": {
+    "generated_at": "2026-09-11T20:48:19Z",
+    "module": "backtest/walk_forward.py",
+    "version": "0.1.0",
+    "libraries": {
+      "pandas": "3.0.3",
+      "numpy": "2.5.3",
+      "riskfolio-lib": "7.3.0",
+      "PyPortfolioOpt": "1.6.0",
+      "cvxpy": "1.9.1"
+    },
+    "params": {
+      "estimation_start": "2018-01-01",
+      "oos_start": "2020-01-01",
+      "first_rebalance": "2019-12-31",
+      "last_rebalance": "2026-06-30",
+      "first_oos_day": "2020-01-02",
+      "oos_end": "2026-09-08",
+      "end_requested": null,
+      "window_months": 24,
+      "window_kind": "expanding",
+      "rebalance": "quarterly",
+      "n_rebalances": 27,
+      "n_oos_days": 1635,
+      "cost_bps": 10.0,
+      "cost_label": "[ESPECULATIVO]",
+      "cost_rationale": "El gate (docs/fase0_data_gate.md §4.3) documenta 0 comisiones explícitas de entrada/salida en FICs abiertos (la comisión de administración ya está descontada en el valor de unidad). 10 bps por unidad de notional transado es un proxy conservador de fricción operativa (cash drag de liquidación T+n, penalidades por pactos de permanencia) sin fuente confirmada; sensibilidad con --cost-bps.",
+      "cost_definition": "sum(|w_target - w_drift|) * cost_bps / 1e4, descontado del NAV el primer día del nuevo periodo",
+      "turnover_definition": "one-way: 0.5 * sum(|w_target - w_drift|), w_drift = pesos previos derivados por precio",
+      "rf_annual": 0.0,
+      "periods_per_year": 252,
+      "cov_method": "ledoit",
+      "max_staleness_bdays": 5,
+      "min_active_funds": 2,
+      "methods": [
+        "markowitz",
+        "risk_parity",
+        "hrp"
+      ],
+      "profiles": [
+        "conservador",
+        "moderado",
+        "agresivo"
+      ],
+      "min_rv": null,
+      "nan_policy": "Celdas NaN intra-vida (manifest.json → gap_log) se tratan como retorno 0 tanto en la ventana de estimación como en el P&L; el retorno puenteado del primer día tras la brecha ya acumula el movimiento.",
+      "tag": "expanding"
+    },
+    "inputs": {
+      "data/cleaned/returns_matrix.parquet": {
+        "sha256": "b93b01d1c8aabea2867610e44c74da375f65805e0ca6d26bb0eaf039253fb968",
+        "bytes": 506921
+      },
+      "data/universe.json": {
+        "sha256": "2fd0c673f3b2c12bc3219345e97ce01fb4bc50bb34d4930a58c7fb37f77ecd16",
+        "bytes": 5848
+      }
+    },
+    "rebalance_dates": [
+      "2019-12-31",
+      "2020-03-31",
+      "2020-06-30",
+      "2020-09-30",
+      "2020-12-31",
+      "2021-03-31",
+      "2021-06-30",
+      "2021-09-30",
+      "2021-12-31",
+      "2022-03-31",
+      "2022-06-30",
+      "2022-09-30",
+      "2022-12-30",
+      "2023-03-31",
+      "2023-06-30",
+      "2023-09-29",
+      "2023-12-29",
+      "2024-03-27",
+      "2024-06-28",
+      "2024-09-30",
+      "2024-12-31",
+      "2025-03-31",
+      "2025-06-27",
+      "2025-09-30",
+      "2025-12-31",
+      "2026-03-31",
+      "2026-06-30"
+    ],
+    "n_active_by_rebalance": {
+      "2019-12-31": 16,
+      "2020-03-31": 17,
+      "2020-06-30": 17,
+      "2020-09-30": 17,
+      "2020-12-31": 18,
+      "2021-03-31": 19,
+      "2021-06-30": 19,
+      "2021-09-30": 19,
+      "2021-12-31": 19,
+      "2022-03-31": 19,
+      "2022-06-30": 19,
+      "2022-09-30": 20,
+      "2022-12-30": 20,
+      "2023-03-31": 21,
+      "2023-06-30": 21,
+      "2023-09-29": 21,
+      "2023-12-29": 21,
+      "2024-03-27": 21,
+      "2024-06-28": 21,
+      "2024-09-30": 21,
+      "2024-12-31": 21,
+      "2025-03-31": 21,
+      "2025-06-27": 21,
+      "2025-09-30": 21,
+      "2025-12-31": 21,
+      "2026-03-31": 21,
+      "2026-06-30": 21
+    },
+    "outputs": {
+      "results/backtest_summary_expanding.parquet": {
+        "sha256": "e6a851a6a45642137af0fb9a92c197f4d9085987cd6f4b6c6ecbf08274762f94",
+        "bytes": 58413,
+        "rows": 9
+      },
+      "results/backtest_weights_expanding.parquet": {
+        "sha256": "857ed33269096e69e2886005fac0648b50247162a6b330244eac21083663bb09",
+        "bytes": 56164,
+        "rows": 5103
+      },
+      "results/backtest_daily_expanding.parquet": {
+        "sha256": "0854b4948a00dbf7003ce95e24ed965026a3f6e25645040a9b66de1176388f50",
+        "bytes": 322093,
+        "rows": 14715
+      },
+      "results/backtest_summary_expanding.md": {
+        "sha256": "011c351ad80081bfb24f9bf6686390d1841e03350372863fa4744929cc0c31eb",
+        "bytes": 4394
+      }
+    },
+    "metrics": {
+      "markowitz|conservador": {
+        "ann_return": 0.07225300467170293,
+        "volatility": 0.009534102495721047,
+        "sharpe": 7.3228936534878475,
+        "max_drawdown": -0.029441130005350646,
+        "cvar_95": -0.0010727385785477368,
+        "avg_turnover": 0.03528038903115278,
+        "total_cost": 0.0028345802296199443,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5724309576023054
+      },
+      "markowitz|moderado": {
+        "ann_return": 0.07342484077779465,
+        "volatility": 0.009953668269748178,
+        "sharpe": 7.124396835607768,
+        "max_drawdown": -0.029441123920116885,
+        "cvar_95": -0.0011067296732941252,
+        "avg_turnover": 0.033152682440913704,
+        "total_cost": 0.0027239394869275125,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5836140260882701
+      },
+      "markowitz|agresivo": {
+        "ann_return": 0.07342484081473244,
+        "volatility": 0.009953668272168831,
+        "sharpe": 7.124396837335621,
+        "max_drawdown": -0.029441123916427503,
+        "cvar_95": -0.0011067296730901163,
+        "avg_turnover": 0.03315268300965626,
+        "total_cost": 0.0027239395165021252,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5836140264418317
+      },
+      "risk_parity|conservador": {
+        "ann_return": 0.07628560787093153,
+        "volatility": 0.016088922540843337,
+        "sharpe": 4.578068250195678,
+        "max_drawdown": -0.04291684163852094,
+        "cvar_95": -0.0021083607655075355,
+        "avg_turnover": 0.02392146569447107,
+        "total_cost": 0.002243916216112496,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.611197852138438
+      },
+      "risk_parity|moderado": {
+        "ann_return": 0.07628559483049346,
+        "volatility": 0.01608894453556822,
+        "sharpe": 4.57806126038304,
+        "max_drawdown": -0.04291687798460564,
+        "cvar_95": -0.0021083649111404306,
+        "avg_turnover": 0.023922599033180218,
+        "total_cost": 0.0022439751497253715,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6111977254809913
+      },
+      "risk_parity|agresivo": {
+        "ann_return": 0.07628562658051208,
+        "volatility": 0.01608893930287434,
+        "sharpe": 4.5780645780990135,
+        "max_drawdown": -0.042916829293051295,
+        "cvar_95": -0.002108364272626945,
+        "avg_turnover": 0.023920868535604548,
+        "total_cost": 0.0022438851638514365,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6111980338583958
+      },
+      "hrp|conservador": {
+        "ann_return": 0.07375023171892403,
+        "volatility": 0.01015245319666219,
+        "sharpe": 7.014960140914748,
+        "max_drawdown": -0.02967633177349638,
+        "cvar_95": -0.0010934789104874456,
+        "avg_turnover": 0.04090192767050582,
+        "total_cost": 0.0031269002388663028,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5867312043412254
+      },
+      "hrp|moderado": {
+        "ann_return": 0.07548514164837528,
+        "volatility": 0.011044804248858427,
+        "sharpe": 6.595264774373316,
+        "max_drawdown": -0.02967412495140309,
+        "cvar_95": -0.0012535029207875342,
+        "avg_turnover": 0.03810632534385228,
+        "total_cost": 0.0029815289178802954,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6034390383616886
+      },
+      "hrp|agresivo": {
+        "ann_return": 0.07548525157006902,
+        "volatility": 0.011044819081870683,
+        "sharpe": 6.59526518838473,
+        "max_drawdown": -0.029674187904385696,
+        "cvar_95": -0.0012535039323267293,
+        "avg_turnover": 0.038106790761877785,
+        "total_cost": 0.0029815531196176063,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.603440101644487
+      }
+    }
+  },
+  "backtest_cost0": {
+    "generated_at": "2026-09-11T20:48:26Z",
+    "module": "backtest/walk_forward.py",
+    "version": "0.1.0",
+    "libraries": {
+      "pandas": "3.0.3",
+      "numpy": "2.5.3",
+      "riskfolio-lib": "7.3.0",
+      "PyPortfolioOpt": "1.6.0",
+      "cvxpy": "1.9.1"
+    },
+    "params": {
+      "estimation_start": "2018-01-01",
+      "oos_start": "2020-01-01",
+      "first_rebalance": "2019-12-31",
+      "last_rebalance": "2026-06-30",
+      "first_oos_day": "2020-01-02",
+      "oos_end": "2026-09-08",
+      "end_requested": null,
+      "window_months": 24,
+      "window_kind": "rolling",
+      "rebalance": "quarterly",
+      "n_rebalances": 27,
+      "n_oos_days": 1635,
+      "cost_bps": 0.0,
+      "cost_label": "[ESPECULATIVO]",
+      "cost_rationale": "El gate (docs/fase0_data_gate.md §4.3) documenta 0 comisiones explícitas de entrada/salida en FICs abiertos (la comisión de administración ya está descontada en el valor de unidad). 10 bps por unidad de notional transado es un proxy conservador de fricción operativa (cash drag de liquidación T+n, penalidades por pactos de permanencia) sin fuente confirmada; sensibilidad con --cost-bps.",
+      "cost_definition": "sum(|w_target - w_drift|) * cost_bps / 1e4, descontado del NAV el primer día del nuevo periodo",
+      "turnover_definition": "one-way: 0.5 * sum(|w_target - w_drift|), w_drift = pesos previos derivados por precio",
+      "rf_annual": 0.0,
+      "periods_per_year": 252,
+      "cov_method": "ledoit",
+      "max_staleness_bdays": 5,
+      "min_active_funds": 2,
+      "methods": [
+        "markowitz",
+        "risk_parity",
+        "hrp"
+      ],
+      "profiles": [
+        "conservador",
+        "moderado",
+        "agresivo"
+      ],
+      "min_rv": null,
+      "nan_policy": "Celdas NaN intra-vida (manifest.json → gap_log) se tratan como retorno 0 tanto en la ventana de estimación como en el P&L; el retorno puenteado del primer día tras la brecha ya acumula el movimiento.",
+      "tag": "cost0"
+    },
+    "inputs": {
+      "data/cleaned/returns_matrix.parquet": {
+        "sha256": "b93b01d1c8aabea2867610e44c74da375f65805e0ca6d26bb0eaf039253fb968",
+        "bytes": 506921
+      },
+      "data/universe.json": {
+        "sha256": "2fd0c673f3b2c12bc3219345e97ce01fb4bc50bb34d4930a58c7fb37f77ecd16",
+        "bytes": 5848
+      }
+    },
+    "rebalance_dates": [
+      "2019-12-31",
+      "2020-03-31",
+      "2020-06-30",
+      "2020-09-30",
+      "2020-12-31",
+      "2021-03-31",
+      "2021-06-30",
+      "2021-09-30",
+      "2021-12-31",
+      "2022-03-31",
+      "2022-06-30",
+      "2022-09-30",
+      "2022-12-30",
+      "2023-03-31",
+      "2023-06-30",
+      "2023-09-29",
+      "2023-12-29",
+      "2024-03-27",
+      "2024-06-28",
+      "2024-09-30",
+      "2024-12-31",
+      "2025-03-31",
+      "2025-06-27",
+      "2025-09-30",
+      "2025-12-31",
+      "2026-03-31",
+      "2026-06-30"
+    ],
+    "n_active_by_rebalance": {
+      "2019-12-31": 16,
+      "2020-03-31": 17,
+      "2020-06-30": 17,
+      "2020-09-30": 17,
+      "2020-12-31": 18,
+      "2021-03-31": 19,
+      "2021-06-30": 19,
+      "2021-09-30": 19,
+      "2021-12-31": 19,
+      "2022-03-31": 19,
+      "2022-06-30": 19,
+      "2022-09-30": 20,
+      "2022-12-30": 20,
+      "2023-03-31": 21,
+      "2023-06-30": 21,
+      "2023-09-29": 21,
+      "2023-12-29": 21,
+      "2024-03-27": 21,
+      "2024-06-28": 21,
+      "2024-09-30": 21,
+      "2024-12-31": 21,
+      "2025-03-31": 21,
+      "2025-06-27": 21,
+      "2025-09-30": 21,
+      "2025-12-31": 21,
+      "2026-03-31": 21,
+      "2026-06-30": 21
+    },
+    "outputs": {
+      "results/backtest_summary_cost0.parquet": {
+        "sha256": "692090ef7cb97e5034ec9905ec117cbdc39ef83a21d01725e27fa70c3f4e5202",
+        "bytes": 58674,
+        "rows": 9
+      },
+      "results/backtest_weights_cost0.parquet": {
+        "sha256": "cc7c32779ecacc69c9991de74fb29bb6c667ae504298a80316cf943112848764",
+        "bytes": 53926,
+        "rows": 5103
+      },
+      "results/backtest_daily_cost0.parquet": {
+        "sha256": "36df7bdba2a6b5b28e27473110c970856eb5b5894b8b2adc09623027d4a9532c",
+        "bytes": 322181,
+        "rows": 14715
+      },
+      "results/backtest_summary_cost0.md": {
+        "sha256": "57579bb5670261fb6286db7409c58267cee93cbe079c5fd1f61655a743eb1a47",
+        "bytes": 4391
+      }
+    },
+    "metrics": {
+      "markowitz|conservador": {
+        "ann_return": 0.07298284400990185,
+        "volatility": 0.009717618309693548,
+        "sharpe": 7.25482305194819,
+        "max_drawdown": -0.029441130005350424,
+        "cvar_95": -0.0011004348017122315,
+        "avg_turnover": 0.06045171610225564,
+        "total_cost": 0.0,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5793880861053955
+      },
+      "markowitz|moderado": {
+        "ann_return": 0.07365082325257122,
+        "volatility": 0.010369426006813929,
+        "sharpe": 6.859460586636827,
+        "max_drawdown": -0.029441123920116996,
+        "cvar_95": -0.0012513244638865492,
+        "avg_turnover": 0.047671140086207216,
+        "total_cost": 0.0,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5857783415846067
+      },
+      "markowitz|agresivo": {
+        "ann_return": 0.07365080802481971,
+        "volatility": 0.010369425731433344,
+        "sharpe": 6.859459400357159,
+        "max_drawdown": -0.02944112391642728,
+        "cvar_95": -0.0012513245422624444,
+        "avg_turnover": 0.04767124191889926,
+        "total_cost": 0.0,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5857781956586994
+      },
+      "risk_parity|conservador": {
+        "ann_return": 0.0786557128754879,
+        "volatility": 0.016188600284718368,
+        "sharpe": 4.685898147749865,
+        "max_drawdown": -0.04291684163852105,
+        "cvar_95": -0.002079507832043603,
+        "avg_turnover": 0.028651212208915304,
+        "total_cost": 0.0,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6343574584781726
+      },
+      "risk_parity|moderado": {
+        "ann_return": 0.07865583055322367,
+        "volatility": 0.01618860008622204,
+        "sharpe": 4.68590494616028,
+        "max_drawdown": -0.042916877984605084,
+        "cvar_95": -0.0020795062533290063,
+        "avg_turnover": 0.02864982818227611,
+        "total_cost": 0.0,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6343586153249765
+      },
+      "risk_parity|agresivo": {
+        "ann_return": 0.07865571571210683,
+        "volatility": 0.016188588078456207,
+        "sharpe": 4.6859018312069525,
+        "max_drawdown": -0.042916829293051406,
+        "cvar_95": -0.0020795063685171266,
+        "avg_turnover": 0.028650023368837887,
+        "total_cost": 0.0,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6343574863639263
+      },
+      "hrp|conservador": {
+        "ann_return": 0.07581141549443271,
+        "volatility": 0.010171438357192607,
+        "sharpe": 7.190484156140625,
+        "max_drawdown": -0.029676331773495934,
+        "cvar_95": -0.0010660694452561397,
+        "avg_turnover": 0.05706337348905676,
+        "total_cost": 0.0,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6065977433646756
+      },
+      "hrp|moderado": {
+        "ann_return": 0.07663507249439028,
+        "volatility": 0.010323662857125859,
+        "sharpe": 7.158764338026939,
+        "max_drawdown": -0.02967412495140309,
+        "cvar_95": -0.0010738932582241689,
+        "avg_turnover": 0.05343437932498266,
+        "total_cost": 0.0,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6145951117705288
+      },
+      "hrp|agresivo": {
+        "ann_return": 0.07663479977903576,
+        "volatility": 0.010323640421935966,
+        "sharpe": 7.15875532954474,
+        "max_drawdown": -0.02967418790438514,
+        "cvar_95": -0.0010738861311256154,
+        "avg_turnover": 0.053434707518965494,
+        "total_cost": 0.0,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6145924582551139
+      }
+    }
+  },
+  "backtest_cost25": {
+    "generated_at": "2026-09-11T20:48:32Z",
+    "module": "backtest/walk_forward.py",
+    "version": "0.1.0",
+    "libraries": {
+      "pandas": "3.0.3",
+      "numpy": "2.5.3",
+      "riskfolio-lib": "7.3.0",
+      "PyPortfolioOpt": "1.6.0",
+      "cvxpy": "1.9.1"
+    },
+    "params": {
+      "estimation_start": "2018-01-01",
+      "oos_start": "2020-01-01",
+      "first_rebalance": "2019-12-31",
+      "last_rebalance": "2026-06-30",
+      "first_oos_day": "2020-01-02",
+      "oos_end": "2026-09-08",
+      "end_requested": null,
+      "window_months": 24,
+      "window_kind": "rolling",
+      "rebalance": "quarterly",
+      "n_rebalances": 27,
+      "n_oos_days": 1635,
+      "cost_bps": 25.0,
+      "cost_label": "[ESPECULATIVO]",
+      "cost_rationale": "El gate (docs/fase0_data_gate.md §4.3) documenta 0 comisiones explícitas de entrada/salida en FICs abiertos (la comisión de administración ya está descontada en el valor de unidad). 10 bps por unidad de notional transado es un proxy conservador de fricción operativa (cash drag de liquidación T+n, penalidades por pactos de permanencia) sin fuente confirmada; sensibilidad con --cost-bps.",
+      "cost_definition": "sum(|w_target - w_drift|) * cost_bps / 1e4, descontado del NAV el primer día del nuevo periodo",
+      "turnover_definition": "one-way: 0.5 * sum(|w_target - w_drift|), w_drift = pesos previos derivados por precio",
+      "rf_annual": 0.0,
+      "periods_per_year": 252,
+      "cov_method": "ledoit",
+      "max_staleness_bdays": 5,
+      "min_active_funds": 2,
+      "methods": [
+        "markowitz",
+        "risk_parity",
+        "hrp"
+      ],
+      "profiles": [
+        "conservador",
+        "moderado",
+        "agresivo"
+      ],
+      "min_rv": null,
+      "nan_policy": "Celdas NaN intra-vida (manifest.json → gap_log) se tratan como retorno 0 tanto en la ventana de estimación como en el P&L; el retorno puenteado del primer día tras la brecha ya acumula el movimiento.",
+      "tag": "cost25"
+    },
+    "inputs": {
+      "data/cleaned/returns_matrix.parquet": {
+        "sha256": "b93b01d1c8aabea2867610e44c74da375f65805e0ca6d26bb0eaf039253fb968",
+        "bytes": 506921
+      },
+      "data/universe.json": {
+        "sha256": "2fd0c673f3b2c12bc3219345e97ce01fb4bc50bb34d4930a58c7fb37f77ecd16",
+        "bytes": 5848
+      }
+    },
+    "rebalance_dates": [
+      "2019-12-31",
+      "2020-03-31",
+      "2020-06-30",
+      "2020-09-30",
+      "2020-12-31",
+      "2021-03-31",
+      "2021-06-30",
+      "2021-09-30",
+      "2021-12-31",
+      "2022-03-31",
+      "2022-06-30",
+      "2022-09-30",
+      "2022-12-30",
+      "2023-03-31",
+      "2023-06-30",
+      "2023-09-29",
+      "2023-12-29",
+      "2024-03-27",
+      "2024-06-28",
+      "2024-09-30",
+      "2024-12-31",
+      "2025-03-31",
+      "2025-06-27",
+      "2025-09-30",
+      "2025-12-31",
+      "2026-03-31",
+      "2026-06-30"
+    ],
+    "n_active_by_rebalance": {
+      "2019-12-31": 16,
+      "2020-03-31": 17,
+      "2020-06-30": 17,
+      "2020-09-30": 17,
+      "2020-12-31": 18,
+      "2021-03-31": 19,
+      "2021-06-30": 19,
+      "2021-09-30": 19,
+      "2021-12-31": 19,
+      "2022-03-31": 19,
+      "2022-06-30": 19,
+      "2022-09-30": 20,
+      "2022-12-30": 20,
+      "2023-03-31": 21,
+      "2023-06-30": 21,
+      "2023-09-29": 21,
+      "2023-12-29": 21,
+      "2024-03-27": 21,
+      "2024-06-28": 21,
+      "2024-09-30": 21,
+      "2024-12-31": 21,
+      "2025-03-31": 21,
+      "2025-06-27": 21,
+      "2025-09-30": 21,
+      "2025-12-31": 21,
+      "2026-03-31": 21,
+      "2026-06-30": 21
+    },
+    "outputs": {
+      "results/backtest_summary_cost25.parquet": {
+        "sha256": "d06419db9366c0a6a822b9a5c8be9b9ddee9bfe59578a9f09e99c0873f2f12f4",
+        "bytes": 58749,
+        "rows": 9
+      },
+      "results/backtest_weights_cost25.parquet": {
+        "sha256": "e1f4c64b7b9d7003f3b0563ca46dd867350346f6313743ece1c6211a8805e22f",
+        "bytes": 56326,
+        "rows": 5103
+      },
+      "results/backtest_daily_cost25.parquet": {
+        "sha256": "b98e7914f565cf329080c6562a43c91813827fc13dabf99b15cc307e5d2d7f5b",
+        "bytes": 322197,
+        "rows": 14715
+      },
+      "results/backtest_summary_cost25.md": {
+        "sha256": "411303a38d7a84029570f99f3a410f83b7c91605ccc5bee54c46f06a052e3df1",
+        "bytes": 4392
+      }
+    },
+    "metrics": {
+      "markowitz|conservador": {
+        "ann_return": 0.0712702338975515,
+        "volatility": 0.009784940050706882,
+        "sharpe": 7.0416804406735025,
+        "max_drawdown": -0.029441130005350757,
+        "cvar_95": -0.0011363587744069937,
+        "avg_turnover": 0.060451716102255644,
+        "total_cost": 0.010358723093293236,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5631037506113168
+      },
+      "markowitz|moderado": {
+        "ann_return": 0.0722118231167761,
+        "volatility": 0.010417668625701976,
+        "sharpe": 6.6989662521904,
+        "max_drawdown": -0.02944112392011644,
+        "cvar_95": -0.0012832120749981999,
+        "avg_turnover": 0.047671140086207216,
+        "total_cost": 0.008697248211206937,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5720391719742872
+      },
+      "markowitz|agresivo": {
+        "ann_return": 0.07221180572149244,
+        "volatility": 0.010417668289208513,
+        "sharpe": 6.698964910472861,
+        "max_drawdown": -0.029441123916427725,
+        "cvar_95": -0.0012832121942037043,
+        "avg_turnover": 0.04767124191889925,
+        "total_cost": 0.008697261449456902,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5720390064996328
+      },
+      "risk_parity|conservador": {
+        "ann_return": 0.07762068694553581,
+        "volatility": 0.01627826941558548,
+        "sharpe": 4.6011829431542255,
+        "max_drawdown": -0.04291684163852072,
+        "cvar_95": -0.002109623521883896,
+        "avg_turnover": 0.02865121220891531,
+        "total_cost": 0.006224657587158991,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6242092527575223
+      },
+      "risk_parity|moderado": {
+        "ann_return": 0.07762083439521716,
+        "volatility": 0.016278269425604838,
+        "sharpe": 4.601191348464422,
+        "max_drawdown": -0.04291687798460542,
+        "cvar_95": -0.002109622160765346,
+        "avg_turnover": 0.028649828182276113,
+        "total_cost": 0.006224477663695894,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6242106946646147
+      },
+      "risk_parity|agresivo": {
+        "ann_return": 0.07762071545028015,
+        "volatility": 0.016278257410806834,
+        "sharpe": 4.601187949826428,
+        "max_drawdown": -0.04291682929305085,
+        "cvar_95": -0.0021096219213962175,
+        "avg_turnover": 0.028650023368837898,
+        "total_cost": 0.006224503037948926,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6242095315046869
+      },
+      "hrp|conservador": {
+        "ann_return": 0.07416725197772656,
+        "volatility": 0.010257315933710775,
+        "sharpe": 6.981215834727966,
+        "max_drawdown": -0.029676331773495934,
+        "cvar_95": -0.0011021620947597544,
+        "avg_turnover": 0.05706337348905676,
+        "total_cost": 0.009918238553577378,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5907337594746689
+      },
+      "hrp|moderado": {
+        "ann_return": 0.07506784552703638,
+        "volatility": 0.010405571506216255,
+        "sharpe": 6.962459052017783,
+        "max_drawdown": -0.029674124951403535,
+        "cvar_95": -0.001109717977265838,
+        "avg_turnover": 0.05343437932498264,
+        "total_cost": 0.009446469312247687,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5994067904389753
+      },
+      "hrp|agresivo": {
+        "ann_return": 0.07506756613992649,
+        "volatility": 0.010405550877405932,
+        "sharpe": 6.962447852230836,
+        "max_drawdown": -0.029674187904385585,
+        "cvar_95": -0.0011097108552646404,
+        "avg_turnover": 0.053434707518965494,
+        "total_cost": 0.009446511977465417,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5994040936539089
+      }
+    }
+  },
+  "backtest_monthly": {
+    "generated_at": "2026-09-11T20:48:13Z",
+    "module": "backtest/walk_forward.py",
+    "version": "0.1.0",
+    "libraries": {
+      "pandas": "3.0.3",
+      "numpy": "2.5.3",
+      "riskfolio-lib": "7.3.0",
+      "PyPortfolioOpt": "1.6.0",
+      "cvxpy": "1.9.1"
+    },
+    "params": {
+      "estimation_start": "2018-01-01",
+      "oos_start": "2020-01-01",
+      "first_rebalance": "2019-12-31",
+      "last_rebalance": "2026-08-31",
+      "first_oos_day": "2020-01-02",
+      "oos_end": "2026-09-08",
+      "end_requested": null,
+      "window_months": 24,
+      "window_kind": "rolling",
+      "rebalance": "monthly",
+      "n_rebalances": 81,
+      "n_oos_days": 1635,
+      "cost_bps": 10.0,
+      "cost_label": "[ESPECULATIVO]",
+      "cost_rationale": "El gate (docs/fase0_data_gate.md §4.3) documenta 0 comisiones explícitas de entrada/salida en FICs abiertos (la comisión de administración ya está descontada en el valor de unidad). 10 bps por unidad de notional transado es un proxy conservador de fricción operativa (cash drag de liquidación T+n, penalidades por pactos de permanencia) sin fuente confirmada; sensibilidad con --cost-bps.",
+      "cost_definition": "sum(|w_target - w_drift|) * cost_bps / 1e4, descontado del NAV el primer día del nuevo periodo",
+      "turnover_definition": "one-way: 0.5 * sum(|w_target - w_drift|), w_drift = pesos previos derivados por precio",
+      "rf_annual": 0.0,
+      "periods_per_year": 252,
+      "cov_method": "ledoit",
+      "max_staleness_bdays": 5,
+      "min_active_funds": 2,
+      "methods": [
+        "markowitz",
+        "risk_parity",
+        "hrp"
+      ],
+      "profiles": [
+        "conservador",
+        "moderado",
+        "agresivo"
+      ],
+      "min_rv": null,
+      "nan_policy": "Celdas NaN intra-vida (manifest.json → gap_log) se tratan como retorno 0 tanto en la ventana de estimación como en el P&L; el retorno puenteado del primer día tras la brecha ya acumula el movimiento.",
+      "tag": "monthly"
+    },
+    "inputs": {
+      "data/cleaned/returns_matrix.parquet": {
+        "sha256": "b93b01d1c8aabea2867610e44c74da375f65805e0ca6d26bb0eaf039253fb968",
+        "bytes": 506921
+      },
+      "data/universe.json": {
+        "sha256": "2fd0c673f3b2c12bc3219345e97ce01fb4bc50bb34d4930a58c7fb37f77ecd16",
+        "bytes": 5848
+      }
+    },
+    "rebalance_dates": [
+      "2019-12-31",
+      "2020-01-31",
+      "2020-02-28",
+      "2020-03-31",
+      "2020-04-30",
+      "2020-05-29",
+      "2020-06-30",
+      "2020-07-31",
+      "2020-08-31",
+      "2020-09-30",
+      "2020-10-30",
+      "2020-11-30",
+      "2020-12-31",
+      "2021-01-29",
+      "2021-02-26",
+      "2021-03-31",
+      "2021-04-30",
+      "2021-05-31",
+      "2021-06-30",
+      "2021-07-30",
+      "2021-08-31",
+      "2021-09-30",
+      "2021-10-29",
+      "2021-11-30",
+      "2021-12-31",
+      "2022-01-31",
+      "2022-02-28",
+      "2022-03-31",
+      "2022-04-29",
+      "2022-05-31",
+      "2022-06-30",
+      "2022-07-29",
+      "2022-08-31",
+      "2022-09-30",
+      "2022-10-31",
+      "2022-11-30",
+      "2022-12-30",
+      "2023-01-31",
+      "2023-02-28",
+      "2023-03-31",
+      "2023-04-28",
+      "2023-05-31",
+      "2023-06-30",
+      "2023-07-31",
+      "2023-08-31",
+      "2023-09-29",
+      "2023-10-31",
+      "2023-11-30",
+      "2023-12-29",
+      "2024-01-31",
+      "2024-02-29",
+      "2024-03-27",
+      "2024-04-30",
+      "2024-05-31",
+      "2024-06-28",
+      "2024-07-31",
+      "2024-08-30",
+      "2024-09-30",
+      "2024-10-31",
+      "2024-11-29",
+      "2024-12-31",
+      "2025-01-31",
+      "2025-02-28",
+      "2025-03-31",
+      "2025-04-30",
+      "2025-05-30",
+      "2025-06-27",
+      "2025-07-31",
+      "2025-08-29",
+      "2025-09-30",
+      "2025-10-31",
+      "2025-11-28",
+      "2025-12-31",
+      "2026-01-30",
+      "2026-02-27",
+      "2026-03-31",
+      "2026-04-30",
+      "2026-05-29",
+      "2026-06-30",
+      "2026-07-31",
+      "2026-08-31"
+    ],
+    "n_active_by_rebalance": {
+      "2019-12-31": 16,
+      "2020-01-31": 16,
+      "2020-02-28": 17,
+      "2020-03-31": 17,
+      "2020-04-30": 17,
+      "2020-05-29": 17,
+      "2020-06-30": 17,
+      "2020-07-31": 17,
+      "2020-08-31": 17,
+      "2020-09-30": 17,
+      "2020-10-30": 17,
+      "2020-11-30": 18,
+      "2020-12-31": 18,
+      "2021-01-29": 18,
+      "2021-02-26": 19,
+      "2021-03-31": 19,
+      "2021-04-30": 19,
+      "2021-05-31": 19,
+      "2021-06-30": 19,
+      "2021-07-30": 19,
+      "2021-08-31": 19,
+      "2021-09-30": 19,
+      "2021-10-29": 19,
+      "2021-11-30": 19,
+      "2021-12-31": 19,
+      "2022-01-31": 19,
+      "2022-02-28": 19,
+      "2022-03-31": 19,
+      "2022-04-29": 19,
+      "2022-05-31": 19,
+      "2022-06-30": 19,
+      "2022-07-29": 20,
+      "2022-08-31": 20,
+      "2022-09-30": 20,
+      "2022-10-31": 20,
+      "2022-11-30": 20,
+      "2022-12-30": 20,
+      "2023-01-31": 20,
+      "2023-02-28": 20,
+      "2023-03-31": 21,
+      "2023-04-28": 21,
+      "2023-05-31": 21,
+      "2023-06-30": 21,
+      "2023-07-31": 21,
+      "2023-08-31": 21,
+      "2023-09-29": 21,
+      "2023-10-31": 21,
+      "2023-11-30": 21,
+      "2023-12-29": 21,
+      "2024-01-31": 21,
+      "2024-02-29": 21,
+      "2024-03-27": 21,
+      "2024-04-30": 21,
+      "2024-05-31": 21,
+      "2024-06-28": 21,
+      "2024-07-31": 21,
+      "2024-08-30": 21,
+      "2024-09-30": 21,
+      "2024-10-31": 21,
+      "2024-11-29": 21,
+      "2024-12-31": 21,
+      "2025-01-31": 21,
+      "2025-02-28": 21,
+      "2025-03-31": 21,
+      "2025-04-30": 21,
+      "2025-05-30": 21,
+      "2025-06-27": 21,
+      "2025-07-31": 21,
+      "2025-08-29": 21,
+      "2025-09-30": 21,
+      "2025-10-31": 21,
+      "2025-11-28": 21,
+      "2025-12-31": 21,
+      "2026-01-30": 21,
+      "2026-02-27": 21,
+      "2026-03-31": 21,
+      "2026-04-30": 21,
+      "2026-05-29": 21,
+      "2026-06-30": 21,
+      "2026-07-31": 21,
+      "2026-08-31": 21
+    },
+    "outputs": {
+      "results/backtest_summary_monthly.parquet": {
+        "sha256": "662493ad2e6d51766e1a1256fc7a74e1c2a118f58746b80c91600b3e76d6c13a",
+        "bytes": 149692,
+        "rows": 9
+      },
+      "results/backtest_weights_monthly.parquet": {
+        "sha256": "0af5d804f2b5a2f8d8cbbaba3140dd799c69ac2a1c5c59df22d499e0aefe140a",
+        "bytes": 159675,
+        "rows": 15309
+      },
+      "results/backtest_daily_monthly.parquet": {
+        "sha256": "f117b4146baa3c3f3f8276c9f5ac3ba5d1cf0ffb08e396aa4b14da316bf0239c",
+        "bytes": 322213,
+        "rows": 14715
+      },
+      "results/backtest_summary_monthly.md": {
+        "sha256": "bd28320de387deb9f0365033cb4d128d8b83a5e3ddc7bbceddaf292746981731",
+        "bytes": 5473
+      }
+    },
+    "metrics": {
+      "markowitz|conservador": {
+        "ann_return": 0.07291430130386534,
+        "volatility": 0.009247256831670858,
+        "sharpe": 7.6164436890215415,
+        "max_drawdown": -0.025517353865114112,
+        "cvar_95": -0.00109339999444872,
+        "avg_turnover": 0.02906712256037509,
+        "total_cost": 0.005650739609660015,
+        "n_rebalances": 81,
+        "n_days": 1635,
+        "total_return": 0.5787336030387327
+      },
+      "markowitz|moderado": {
+        "ann_return": 0.07339502379862406,
+        "volatility": 0.009708529203401536,
+        "sharpe": 7.301173584960606,
+        "max_drawdown": -0.025517354133136716,
+        "cvar_95": -0.0011698841157656915,
+        "avg_turnover": 0.024897927015989023,
+        "total_cost": 0.004983668322558243,
+        "n_rebalances": 81,
+        "n_days": 1635,
+        "total_return": 0.5833286448266768
+      },
+      "markowitz|agresivo": {
+        "ann_return": 0.07339500719529002,
+        "volatility": 0.009708529318077636,
+        "sharpe": 7.301171905143005,
+        "max_drawdown": -0.025517354098389622,
+        "cvar_95": -0.0011698843520879798,
+        "avg_turnover": 0.024898008690850133,
+        "total_cost": 0.004983681390536022,
+        "n_rebalances": 81,
+        "n_days": 1635,
+        "total_return": 0.5833284859266401
+      },
+      "risk_parity|conservador": {
+        "ann_return": 0.07830668097712556,
+        "volatility": 0.015492492045734793,
+        "sharpe": 4.874832577545853,
+        "max_drawdown": -0.038496696134902364,
+        "cvar_95": -0.0019838100806979747,
+        "avg_turnover": 0.011817814765282967,
+        "total_cost": 0.0028908503624452747,
+        "n_rebalances": 81,
+        "n_days": 1635,
+        "total_return": 0.6309292996595115
+      },
+      "risk_parity|moderado": {
+        "ann_return": 0.07830668207117442,
+        "volatility": 0.015492539430272345,
+        "sharpe": 4.874817780803,
+        "max_drawdown": -0.038497066785220135,
+        "cvar_95": -0.0019838158767863006,
+        "avg_turnover": 0.0118170296518447,
+        "total_cost": 0.0028907247442951515,
+        "n_rebalances": 81,
+        "n_days": 1635,
+        "total_return": 0.6309293103956175
+      },
+      "risk_parity|agresivo": {
+        "ann_return": 0.0783066657417053,
+        "volatility": 0.015492505905545653,
+        "sharpe": 4.8748273181396815,
+        "max_drawdown": -0.03849683580180241,
+        "cvar_95": -0.001983811280057241,
+        "avg_turnover": 0.01181729293011288,
+        "total_cost": 0.0028907668688180604,
+        "n_rebalances": 81,
+        "n_days": 1635,
+        "total_return": 0.6309291501514978
+      },
+      "hrp|conservador": {
+        "ann_return": 0.0745436436986231,
+        "volatility": 0.009584220607725276,
+        "sharpe": 7.5073677339978735,
+        "max_drawdown": -0.025490797430320677,
+        "cvar_95": -0.001039927717969539,
+        "avg_turnover": 0.029269608759681976,
+        "total_cost": 0.0056831374015491164,
+        "n_rebalances": 81,
+        "n_days": 1635,
+        "total_return": 0.594353691961057
+      },
+      "hrp|moderado": {
+        "ann_return": 0.07540018372882429,
+        "volatility": 0.009770852237906021,
+        "sharpe": 7.44572752984769,
+        "max_drawdown": -0.02548762405993177,
+        "cvar_95": -0.001047471364899244,
+        "avg_turnover": 0.02775148385617391,
+        "total_cost": 0.005440237416987802,
+        "n_rebalances": 81,
+        "n_days": 1635,
+        "total_return": 0.6026174108290838
+      },
+      "hrp|agresivo": {
+        "ann_return": 0.07539970907545324,
+        "volatility": 0.009770858446568017,
+        "sharpe": 7.44567761944731,
+        "max_drawdown": -0.02548778049383693,
+        "cvar_95": -0.001047465751105799,
+        "avg_turnover": 0.027751543490699204,
+        "total_cost": 0.005440246958511834,
+        "n_rebalances": 81,
+        "n_days": 1635,
+        "total_return": 0.6026128214597424
+      }
+    }
+  },
+  "backtest_minrv": {
+    "generated_at": "2026-09-11T20:48:37Z",
+    "module": "backtest/walk_forward.py",
+    "version": "0.1.0",
+    "libraries": {
+      "pandas": "3.0.3",
+      "numpy": "2.5.3",
+      "riskfolio-lib": "7.3.0",
+      "PyPortfolioOpt": "1.6.0",
+      "cvxpy": "1.9.1"
+    },
+    "params": {
+      "estimation_start": "2018-01-01",
+      "oos_start": "2020-01-01",
+      "first_rebalance": "2019-12-31",
+      "last_rebalance": "2026-06-30",
+      "first_oos_day": "2020-01-02",
+      "oos_end": "2026-09-08",
+      "end_requested": null,
+      "window_months": 24,
+      "window_kind": "rolling",
+      "rebalance": "quarterly",
+      "n_rebalances": 27,
+      "n_oos_days": 1635,
+      "cost_bps": 10.0,
+      "cost_label": "[ESPECULATIVO]",
+      "cost_rationale": "El gate (docs/fase0_data_gate.md §4.3) documenta 0 comisiones explícitas de entrada/salida en FICs abiertos (la comisión de administración ya está descontada en el valor de unidad). 10 bps por unidad de notional transado es un proxy conservador de fricción operativa (cash drag de liquidación T+n, penalidades por pactos de permanencia) sin fuente confirmada; sensibilidad con --cost-bps.",
+      "cost_definition": "sum(|w_target - w_drift|) * cost_bps / 1e4, descontado del NAV el primer día del nuevo periodo",
+      "turnover_definition": "one-way: 0.5 * sum(|w_target - w_drift|), w_drift = pesos previos derivados por precio",
+      "rf_annual": 0.0,
+      "periods_per_year": 252,
+      "cov_method": "ledoit",
+      "max_staleness_bdays": 5,
+      "min_active_funds": 2,
+      "methods": [
+        "markowitz",
+        "risk_parity",
+        "hrp"
+      ],
+      "profiles": [
+        "conservador",
+        "moderado",
+        "agresivo"
+      ],
+      "min_rv": {
+        "conservador": 0.0,
+        "moderado": 0.2,
+        "agresivo": 0.45
+      },
+      "nan_policy": "Celdas NaN intra-vida (manifest.json → gap_log) se tratan como retorno 0 tanto en la ventana de estimación como en el P&L; el retorno puenteado del primer día tras la brecha ya acumula el movimiento.",
+      "tag": "minrv"
+    },
+    "inputs": {
+      "data/cleaned/returns_matrix.parquet": {
+        "sha256": "b93b01d1c8aabea2867610e44c74da375f65805e0ca6d26bb0eaf039253fb968",
+        "bytes": 506921
+      },
+      "data/universe.json": {
+        "sha256": "2fd0c673f3b2c12bc3219345e97ce01fb4bc50bb34d4930a58c7fb37f77ecd16",
+        "bytes": 5848
+      }
+    },
+    "rebalance_dates": [
+      "2019-12-31",
+      "2020-03-31",
+      "2020-06-30",
+      "2020-09-30",
+      "2020-12-31",
+      "2021-03-31",
+      "2021-06-30",
+      "2021-09-30",
+      "2021-12-31",
+      "2022-03-31",
+      "2022-06-30",
+      "2022-09-30",
+      "2022-12-30",
+      "2023-03-31",
+      "2023-06-30",
+      "2023-09-29",
+      "2023-12-29",
+      "2024-03-27",
+      "2024-06-28",
+      "2024-09-30",
+      "2024-12-31",
+      "2025-03-31",
+      "2025-06-27",
+      "2025-09-30",
+      "2025-12-31",
+      "2026-03-31",
+      "2026-06-30"
+    ],
+    "n_active_by_rebalance": {
+      "2019-12-31": 16,
+      "2020-03-31": 17,
+      "2020-06-30": 17,
+      "2020-09-30": 17,
+      "2020-12-31": 18,
+      "2021-03-31": 19,
+      "2021-06-30": 19,
+      "2021-09-30": 19,
+      "2021-12-31": 19,
+      "2022-03-31": 19,
+      "2022-06-30": 19,
+      "2022-09-30": 20,
+      "2022-12-30": 20,
+      "2023-03-31": 21,
+      "2023-06-30": 21,
+      "2023-09-29": 21,
+      "2023-12-29": 21,
+      "2024-03-27": 21,
+      "2024-06-28": 21,
+      "2024-09-30": 21,
+      "2024-12-31": 21,
+      "2025-03-31": 21,
+      "2025-06-27": 21,
+      "2025-09-30": 21,
+      "2025-12-31": 21,
+      "2026-03-31": 21,
+      "2026-06-30": 21
+    },
+    "outputs": {
+      "results/backtest_summary_minrv.parquet": {
+        "sha256": "635f84de31a2ad9d43400ce33642a1157e351717194ba61fdabb18f5e909f2ad",
+        "bytes": 57574,
+        "rows": 9
+      },
+      "results/backtest_weights_minrv.parquet": {
+        "sha256": "31c020912c3c399fefe853e9281685654b7ed056d373efb9378e16555368319d",
+        "bytes": 55163,
+        "rows": 5103
+      },
+      "results/backtest_daily_minrv.parquet": {
+        "sha256": "48e9f6b2357deff639579782f0f733ade578561cac612ffcf905006e10733814",
+        "bytes": 322281,
+        "rows": 14715
+      },
+      "results/backtest_summary_minrv.md": {
+        "sha256": "42ef828c8dadac49db59b330206646794ade07f1ce40bc1d838383ffa7f5a487",
+        "bytes": 4512
+      }
+    },
+    "metrics": {
+      "markowitz|conservador": {
+        "ann_return": 0.07229768330897834,
+        "volatility": 0.009724461579776507,
+        "sharpe": 7.184020277944723,
+        "max_drawdown": -0.029441130005350646,
+        "cvar_95": -0.0011079575600608617,
+        "avg_turnover": 0.060451716102255665,
+        "total_cost": 0.004143489237317295,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5728561065468754
+      },
+      "markowitz|moderado": {
+        "ann_return": 0.07079578652894725,
+        "volatility": 0.028543021811125426,
+        "sharpe": 2.4111140675958094,
+        "max_drawdown": -0.10070123360172567,
+        "cvar_95": -0.0038133889139881074,
+        "avg_turnover": 0.17110565250040685,
+        "total_cost": 0.009897493930017424,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5586176783984858
+      },
+      "markowitz|agresivo": {
+        "ann_return": 0.07825717830700829,
+        "volatility": 0.06204922671497574,
+        "sharpe": 1.2456621072289722,
+        "max_drawdown": -0.17776948223139244,
+        "cvar_95": -0.008963604122001997,
+        "avg_turnover": 0.22262025461732346,
+        "total_cost": 0.012576253240099223,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6304435819136314
+      },
+      "risk_parity|conservador": {
+        "ann_return": 0.07824174266014405,
+        "volatility": 0.016215465177509398,
+        "sharpe": 4.654482412851225,
+        "max_drawdown": -0.04291684163852094,
+        "cvar_95": -0.0020853628752810533,
+        "avg_turnover": 0.028651212208915314,
+        "total_cost": 0.002489863034863597,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6302921531390102
+      },
+      "risk_parity|moderado": {
+        "ann_return": 0.07471756172016208,
+        "volatility": 0.030931420009737056,
+        "sharpe": 2.3454601539769144,
+        "max_drawdown": -0.10282139269716273,
+        "cvar_95": -0.004201162352403514,
+        "avg_turnover": 0.03170174211182657,
+        "total_cost": 0.0026484905898149814,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.596028693856405
+      },
+      "risk_parity|agresivo": {
+        "ann_return": 0.07410748056687355,
+        "volatility": 0.06373665591854905,
+        "sharpe": 1.153870682481857,
+        "max_drawdown": -0.1928353149519212,
+        "cvar_95": -0.009065530966548234,
+        "avg_turnover": 0.0393298882751117,
+        "total_cost": 0.0030451541903058076,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.5901595504670201
+      },
+      "hrp|conservador": {
+        "ann_return": 0.07515365155219689,
+        "volatility": 0.010187464677896895,
+        "sharpe": 7.119136769738063,
+        "max_drawdown": -0.02967633177349638,
+        "cvar_95": -0.0010754876591473814,
+        "avg_turnover": 0.057063373489056754,
+        "total_cost": 0.003967295421430951,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6002352154102057
+      },
+      "hrp|moderado": {
+        "ann_return": 0.0751871184512447,
+        "volatility": 0.0327782129494203,
+        "sharpe": 2.2284280079534082,
+        "max_drawdown": -0.10188138239552302,
+        "cvar_95": -0.004615838085389766,
+        "avg_turnover": 0.060199897957738384,
+        "total_cost": 0.004130394693802395,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6005584241342143
+      },
+      "hrp|agresivo": {
+        "ann_return": 0.07605192523606696,
+        "volatility": 0.07084434732289652,
+        "sharpe": 1.0703804756058082,
+        "max_drawdown": -0.19783414333875315,
+        "cvar_95": -0.010347149851757066,
+        "avg_turnover": 0.06033799675739334,
+        "total_cost": 0.004137575831384438,
+        "n_rebalances": 27,
+        "n_days": 1635,
+        "total_return": 0.6089295220234237
+      }
+    }
+  }
+}

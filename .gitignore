@@ -1,0 +1,14 @@
+# secrets
+.env
+
+# raw API downloads are regenerable (python -m data.ingest_sfc); manifest.json records their SHA256
+data/raw/
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+.venv/

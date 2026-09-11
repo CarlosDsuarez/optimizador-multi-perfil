@@ -1,0 +1,16 @@
+# Pinned versions verified against installed docstrings/signatures (see [VERIFICADO] tags in
+# optimization/portfolio_optimizer.py). Install into ./.venv:
+#   python3 -m venv --system-site-packages .venv && .venv/bin/pip install -r requirements.txt
+pandas==3.0.3
+numpy==2.5.3
+scipy==1.17.1
+pyarrow==24.0.0
+requests>=2.31
+tenacity>=8.2
+holidays==0.104
+scikit-learn==1.9.1
+cvxpy==1.9.1
+riskfolio-lib==7.3.0
+PyPortfolioOpt==1.6.0
+pytest==9.0.3
+pytest-cov==7.1.0

@@ -1,0 +1,432 @@
+{
+ "2852": {
+  "cat": "RF_CORTO",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA ABIERTO FIDUCUENTA"
+  ],
+  "codes": [
+   2852
+  ]
+ },
+ "58756": {
+  "cat": "RF_CORTO",
+  "names": [
+   "CREDICORP CAPITAL ALTA LIQUIDEZ"
+  ],
+  "codes": [
+   58756
+  ]
+ },
+ "11407": {
+  "cat": "RF_CORTO",
+  "names": [
+   "CARTERA COLECTIVA ABIERTA DE ALTA LIQUIDEZ"
+  ],
+  "codes": [
+   11407
+  ]
+ },
+ "59304": {
+  "cat": "RF_CORTO",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO RENTA LIQUIDEZ"
+  ],
+  "codes": [
+   59304
+  ]
+ },
+ "8734": {
+  "cat": "RF_CORTO",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA ABIERTO BBVA EFECTIVO CON PARTICIPACIONES DIFERENCIALES"
+  ],
+  "codes": [
+   8734
+  ]
+ },
+ "129120": {
+  "cat": "RF_CORTO",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO SUMAR"
+  ],
+  "codes": [
+   22969,
+   129120
+  ]
+ },
+ "58347": {
+  "cat": "RF_CORTO",
+  "names": [
+   "FIC INTERÉS"
+  ],
+  "codes": [
+   58347
+  ]
+ },
+ "10779": {
+  "cat": "RF_CORTO",
+  "names": [
+   "RENTAFACIL FONDO DE INVERSION COLECTIVA ABIERTO"
+  ],
+  "codes": [
+   10779
+  ]
+ },
+ "128956": {
+  "cat": "RF_CORTO",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA ABIERTO SIN PACTO DE PERMANENCIA OCCITESOROS"
+  ],
+  "codes": [
+   9453,
+   128956
+  ]
+ },
+ "18462": {
+  "cat": "RF_CORTO",
+  "names": [
+   "FONDO CASH CONSERVADOR ALIANZA 1525"
+  ],
+  "codes": [
+   18462
+  ]
+ },
+ "119133": {
+  "cat": "RF_CORTO",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO ITAU MONEY MARKET"
+  ],
+  "codes": [
+   10648,
+   119133
+  ]
+ },
+ "128979": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO FIDUGOB"
+  ],
+  "codes": [
+   10659,
+   128979
+  ]
+ },
+ "10824": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FONDO ABIERTO CON PACTO DE PERMANENCIA CXC"
+  ],
+  "codes": [
+   10824
+  ]
+ },
+ "2971": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO CON PACTO DE PERMANENCIA FIDURENTA"
+  ],
+  "codes": [
+   2971
+  ]
+ },
+ "3049": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO CON PACTO DE PERMANENCIA PLAN SEMILLA"
+  ],
+  "codes": [
+   3049
+  ]
+ },
+ "58883": {
+  "cat": "RF_LARGO",
+  "names": [
+   "CREDICORP CAPITAL DEUDA CORPORATIVA"
+  ],
+  "codes": [
+   58883
+  ]
+ },
+ "3814": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA ABIERTO RENTA FIJA PLAZO"
+  ],
+  "codes": [
+   3814
+  ]
+ },
+ "59076": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FIC RENTA FIJA MEDIANO PLAZO MULTIESCALA"
+  ],
+  "codes": [
+   59076
+  ]
+ },
+ "58897": {
+  "cat": "RF_LARGO",
+  "names": [
+   "CREDICORP CAPITAL RENTA FIJA COLOMBIA"
+  ],
+  "codes": [
+   58897
+  ]
+ },
+ "63301": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO RENTA ALTA CONVICCION"
+  ],
+  "codes": [
+   63301
+  ]
+ },
+ "131893": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FONDO BURSÁTIL GLOBAL X TES COLOMBIA COP GBI EM ID ETF"
+  ],
+  "codes": [
+   118898,
+   131893
+  ]
+ },
+ "78886": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA RENTA FIJA LARGO PLAZO"
+  ],
+  "codes": [
+   78886
+  ]
+ },
+ "59741": {
+  "cat": "RF_LARGO",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO RENTA FIJA PLUS"
+  ],
+  "codes": [
+   59741
+  ]
+ },
+ "60678": {
+  "cat": "RV_LOCAL",
+  "names": [
+   "FONDO BURSÁTIL ISHARES MSCI COLCAP"
+  ],
+  "codes": [
+   60678
+  ]
+ },
+ "129433": {
+  "cat": "RV_LOCAL",
+  "names": [
+   "FONDO BURSÁTIL GLOBAL X COLOMBIA SELECT DE S&P"
+  ],
+  "codes": [
+   43502,
+   129433
+  ]
+ },
+ "59105": {
+  "cat": "RV_LOCAL",
+  "names": [
+   "CREDICORP CAPITAL ACCIONES COLOMBIA"
+  ],
+  "codes": [
+   59105
+  ]
+ },
+ "67403": {
+  "cat": "RV_LOCAL",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO CON PACTO DE PERMANENCIA ALIANZA ACCIONES"
+  ],
+  "codes": [
+   67403
+  ]
+ },
+ "58735": {
+  "cat": "RV_LOCAL",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO ACCIVAL ACCIONES DINAMICO"
+  ],
+  "codes": [
+   58735
+  ]
+ },
+ "59738": {
+  "cat": "RV_LOCAL",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO RENTA VARIABLE COLOMBIA"
+  ],
+  "codes": [
+   59738
+  ]
+ },
+ "119158": {
+  "cat": "RV_LOCAL",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO ITAU ACCIONES COLOMBIA"
+  ],
+  "codes": [
+   85384,
+   119158
+  ]
+ },
+ "11014": {
+  "cat": "RV_LOCAL",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA ABIERTO SIN PACTO DE PERMANENCIA ACCION UNO"
+  ],
+  "codes": [
+   11014
+  ]
+ },
+ "58918": {
+  "cat": "RV_INTL",
+  "names": [
+   "CREDICORP CAPITAL ACCIONES GLOBALES"
+  ],
+  "codes": [
+   58918
+  ]
+ },
+ "3644": {
+  "cat": "RV_INTL",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA ABIERTO RENTA ACCIONES LATAM"
+  ],
+  "codes": [
+   3644
+  ]
+ },
+ "99106": {
+  "cat": "RV_INTL",
+  "names": [
+   "CREDICORP CAPITAL ACCIONES LATAM"
+  ],
+  "codes": [
+   99106
+  ]
+ },
+ "59079": {
+  "cat": "RV_INTL",
+  "names": [
+   "FIC ACCIONES GLOBALES"
+  ],
+  "codes": [
+   59079
+  ]
+ },
+ "59740": {
+  "cat": "RV_INTL",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ABIERTO RENTA SOSTENIBLE GLOBAL"
+  ],
+  "codes": [
+   59740
+  ]
+ },
+ "123532": {
+  "cat": "RV_INTL",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA ACCIONES USA VOO"
+  ],
+  "codes": [
+   123532
+  ]
+ },
+ "95589": {
+  "cat": "RV_INTL",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA CERRADO ASHMORE ACCIONES COLOMBIA + LATAM"
+  ],
+  "codes": [
+   95589
+  ]
+ },
+ "69368": {
+  "cat": "RV_INTL",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA ABIERTO CON PACTO DE PERMANENCIA BBVA AM ESTRATEGIA BALANCEADO GLOBAL"
+  ],
+  "codes": [
+   69368
+  ]
+ },
+ "53962": {
+  "cat": "MIXTO",
+  "names": [
+   "FONDO DE INVERSION COLECTA ABIERTO CON PACTO DE PERMANENCIA SURA MULTIESTRATEGIA CREDITO COLOMBIA"
+  ],
+  "codes": [
+   53962
+  ]
+ },
+ "3078": {
+  "cat": "MIXTO",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA ABIERTO RENTA BALANCEADO"
+  ],
+  "codes": [
+   3078
+  ]
+ },
+ "115127": {
+  "cat": "MIXTO",
+  "names": [
+   "FIC ABIERTO ACCICUENTA MODERADO"
+  ],
+  "codes": [
+   115127
+  ]
+ },
+ "105784": {
+  "cat": "MIXTO",
+  "names": [
+   "FIC MULTIESTRATEGIA EQUILIBRIO"
+  ],
+  "codes": [
+   105784
+  ]
+ },
+ "59078": {
+  "cat": "MIXTO",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA DIVERSIFICADO MODERADO"
+  ],
+  "codes": [
+   59078
+  ]
+ },
+ "93223": {
+  "cat": "MIXTO",
+  "names": [
+   "CREDICORP CAPITAL BALANCEADO COLOMBIA"
+  ],
+  "codes": [
+   93223
+  ]
+ },
+ "113658": {
+  "cat": "MIXTO",
+  "names": [
+   "FONDO DE INVERSION COLECTIVA DIVERSIFICADO CONSERVADOR"
+  ],
+  "codes": [
+   113658
+  ]
+ },
+ "101366": {
+  "cat": "MIXTO",
+  "names": [
+   "FONDO DE INVERSIÓN COLECTIVA ABIERTO CON PACTO DE PERMANENCIA RENOVABLE BALANCEADO MODERADO ALIANZ"
+  ],
+  "codes": [
+   101366
+  ]
+ }
+}
