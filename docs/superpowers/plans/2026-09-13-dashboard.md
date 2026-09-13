@@ -1473,7 +1473,7 @@ Expected: pass with ≥ 85 % (the `__main__` block is `pragma: no cover`). If be
 
 - [ ] **Step 3: Write `dashboard/README.md`**
 
-```markdown
+````markdown
 # `dashboard/` — dendrograma HRP interactivo ↔ AG Grid (Fase 4)
 
 | Ruta | Qué es |
@@ -1508,7 +1508,7 @@ Dash, sin navegador). El test E2E con `dash_duo` se omite si no hay `chromedrive
 pinea `selenium<=4.2.0`, sin Selenium Manager): `brew install chromedriver` para ejecutarlo.
 
 Fuera de alcance (decisión de Fase 4): exportación PDF / tear sheet, estado en URL, sincronización grid → dendrograma.
-```
+````
 
 - [ ] **Step 4: Full suite + commit**
 
