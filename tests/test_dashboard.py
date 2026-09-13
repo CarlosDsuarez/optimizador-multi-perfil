@@ -90,3 +90,95 @@ def test_window_slice_rejects_tiny_universe(synthetic_returns):
     two[FUND_IDS[1]] = np.nan                # only one live fund
     with pytest.raises(BacktestError):
         window_slice(two, two.index[-1], 12)
+
+
+# ---------------------------------------------------------------------------
+# cache.py
+# ---------------------------------------------------------------------------
+@pytest.fixture
+def flask_cache_app():
+    """Flask app mínima con la cache del dashboard inicializada (SimpleCache fresca por test)."""
+    from flask import Flask
+
+    from dashboard.cache import cache, cache_config
+
+    app = Flask("cache-test")
+    cache.init_app(app, cache_config({}))
+    with app.app_context():
+        yield app
+
+
+def test_cache_config_defaults_and_env():
+    from dashboard.cache import DIST_TTL_SECONDS, cache_config
+
+    cfg = cache_config({})
+    assert cfg["CACHE_TYPE"] == "SimpleCache" and cfg["CACHE_DEFAULT_TIMEOUT"] == DIST_TTL_SECONDS == 86400
+    fs = cache_config({"DASH_CACHE_TYPE": "FileSystemCache", "DASH_CACHE_DIR": "/tmp/x"})
+    assert fs["CACHE_TYPE"] == "FileSystemCache" and fs["CACHE_DIR"] == "/tmp/x"
+
+
+def test_distance_bundle_replicates_optimizer_hrp(flask_cache_app, synthetic_returns):
+    from dashboard.cache import distance_bundle
+    from dashboard.data import fingerprint, window_slice
+    from optimization.portfolio_optimizer import optimize
+
+    win = window_slice(synthetic_returns, synthetic_returns.index[-1], 24)
+    b = distance_bundle(win.frame, win.universe, win.start, win.end, fingerprint(synthetic_returns))
+    res = optimize(win.frame, "hrp", "moderado", categories=CATS)
+    assert np.allclose(b.linkage, res.linkage_matrix)
+    assert b.leaf_order == res.leaf_order
+    assert b.cluster_labels == [int(k) for k in res.cluster_labels]
+    assert b.fund_ids == win.universe and b.cov.shape == (len(win.universe),) * 2
+    assert np.allclose(np.diag(b.dist), 0.0) and (b.dist >= 0).all() and (b.dist <= 1).all()
+
+
+def test_distance_cache_ignores_profile_and_method(flask_cache_app, synthetic_returns, monkeypatch):
+    import dashboard.cache as dc
+    from dashboard.data import fingerprint, window_slice
+
+    calls = {"n": 0}
+    real = dc._compute_distance
+
+    def counting(window):
+        calls["n"] += 1
+        return real(window)
+
+    monkeypatch.setattr(dc, "_compute_distance", counting)
+    fp = fingerprint(synthetic_returns)
+    win = window_slice(synthetic_returns, synthetic_returns.index[-1], 24)
+    for profile in ("conservador", "moderado", "agresivo"):
+        for method in ("markowitz", "risk_parity", "hrp"):
+            dc.distance_bundle(win.frame, win.universe, win.start, win.end, fp)
+            dc.portfolio_bundle(win.frame, CATS, win.universe, win.start, win.end, fp, method, profile)
+    assert calls["n"] == 1, "9 combinaciones sobre la misma ventana deben reutilizar la matriz de distancia"
+
+    win12 = window_slice(synthetic_returns, synthetic_returns.index[-1], 12)
+    dc.distance_bundle(win12.frame, win12.universe, win12.start, win12.end, fp)
+    assert calls["n"] == 2, "cambiar la ventana sí recalcula"
+    dc.distance_bundle(win.frame, win.universe, win.start, win.end, fp)
+    assert calls["n"] == 2, "volver a la ventana anterior lee de cache"
+    dc.distance_bundle(win.frame, win.universe, win.start, win.end, "other-fingerprint")
+    assert calls["n"] == 3, "otro fingerprint (re-ingest) invalida"
+
+
+def test_portfolio_bundle_is_memoized_and_serialisable(flask_cache_app, synthetic_returns, monkeypatch):
+    import dashboard.cache as dc
+    from dashboard.data import fingerprint, window_slice
+
+    calls = {"n": 0}
+    real = dc._compute_portfolio
+
+    def counting(window, categories, method, profile):
+        calls["n"] += 1
+        return real(window, categories, method, profile)
+
+    monkeypatch.setattr(dc, "_compute_portfolio", counting)
+    fp = fingerprint(synthetic_returns)
+    win = window_slice(synthetic_returns, synthetic_returns.index[-1], 24)
+    p1 = dc.portfolio_bundle(win.frame, CATS, win.universe, win.start, win.end, fp, "hrp", "agresivo")
+    p2 = dc.portfolio_bundle(win.frame, CATS, win.universe, win.start, win.end, fp, "hrp", "agresivo")
+    assert calls["n"] == 1 and p1 == p2
+    assert abs(sum(p1.weights.values()) - 1) < 1e-6 and p1.raw_weights is not None
+    json.dumps({"w": p1.weights, "raw": p1.raw_weights, "exp": p1.exposures})   # JSON-safe for dcc.Store
+    p3 = dc.portfolio_bundle(win.frame, CATS, win.universe, win.start, win.end, fp, "markowitz", "agresivo")
+    assert calls["n"] == 2 and p3.raw_weights is None
