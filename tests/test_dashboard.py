@@ -182,3 +182,72 @@ def test_portfolio_bundle_is_memoized_and_serialisable(flask_cache_app, syntheti
     json.dumps({"w": p1.weights, "raw": p1.raw_weights, "exp": p1.exposures})   # JSON-safe for dcc.Store
     p3 = dc.portfolio_bundle(win.frame, CATS, win.universe, win.start, win.end, fp, "markowitz", "agresivo")
     assert calls["n"] == 2 and p3.raw_weights is None
+
+
+# ---------------------------------------------------------------------------
+# figures.py
+# ---------------------------------------------------------------------------
+@pytest.fixture(scope="session")
+def bundle(synthetic_returns):
+    from dashboard.cache import _compute_distance
+    from dashboard.data import window_slice
+
+    return _compute_distance(window_slice(synthetic_returns, synthetic_returns.index[-1], 24).frame)
+
+
+def test_dendrogram_geometry_maps_links_to_subtrees(bundle):
+    from scipy.cluster.hierarchy import leaves_list
+
+    from dashboard.figures import dendrogram_geometry
+
+    leaves, links = dendrogram_geometry(bundle.linkage)
+    n = len(bundle.fund_ids)
+    assert leaves == [int(i) for i in leaves_list(bundle.linkage)] == bundle.leaf_order
+    assert len(links) == n - 1
+    root = max(links, key=lambda l: len(l.leaves))
+    assert sorted(root.leaves) == list(range(n)) and root.height == pytest.approx(bundle.linkage[-1, 2])
+    for lk in links:
+        row = lk.node_id - n
+        assert lk.height == pytest.approx(bundle.linkage[row, 2])
+        pos = {leaf: 10 * i + 5 for i, leaf in enumerate(leaves)}
+        xs = [pos[l] for l in lk.leaves]
+        assert min(xs) <= min(lk.pos) and max(lk.pos) <= max(xs)   # U lies inside its subtree span
+
+
+def test_build_dendrogram_trace_contract(bundle):
+    from dashboard.figures import LINK_WIDTH, LINK_WIDTH_HI, MARKER_SIZE, MARKER_SIZE_HI, build_dendrogram
+
+    ids = list(bundle.fund_ids)
+    weights = {f: 1 / len(ids) for f in ids}
+    fig = build_dendrogram(bundle.linkage, ids, {}, bundle.cluster_labels, weights)
+    n = len(ids)
+    assert len(fig.data) == n            # n-1 links + 1 leaf-marker trace
+    leaves = fig.data[-1]
+    assert leaves.name == "leaves" and len(leaves.x) == n
+    assert sorted(cd[0] for cd in leaves.customdata) == sorted(ids)
+    for tr in fig.data[:-1]:
+        assert tr.mode == "lines" and len(tr.customdata) == len(tr.x) > 4      # densified U
+        subtree = tr.customdata[0]
+        assert isinstance(subtree, (list, tuple)) and set(subtree) <= set(ids)
+        assert all(list(cd) == list(subtree) for cd in tr.customdata)
+        assert tr.line.width == LINK_WIDTH
+    assert all(s == MARKER_SIZE for s in leaves.marker.size)
+    # horizontal orientation: leaf positions on y, distances on x
+    assert list(fig.layout.yaxis.ticktext) == [ids[i] for i in bundle.leaf_order]
+    assert max(max(tr.x) for tr in fig.data[:-1]) == pytest.approx(bundle.linkage[-1, 2])
+
+
+def test_build_dendrogram_highlight(bundle):
+    from dashboard.figures import LINK_WIDTH_HI, MARKER_SIZE_HI, build_dendrogram, dendrogram_geometry
+
+    ids = list(bundle.fund_ids)
+    _, links = dendrogram_geometry(bundle.linkage)
+    small = min(links, key=lambda l: len(l.leaves))          # a 2-leaf link
+    pinned = {ids[i] for i in small.leaves}
+    fig = build_dendrogram(bundle.linkage, ids, {}, bundle.cluster_labels, {}, highlight=pinned)
+    hi_links = [tr for tr in fig.data[:-1] if tr.line.width == LINK_WIDTH_HI]
+    assert hi_links and all(set(tr.customdata[0]) <= pinned for tr in hi_links)
+    leaves = fig.data[-1]
+    sizes = dict(zip((cd[0] for cd in leaves.customdata), leaves.marker.size))
+    assert all(sizes[f] == MARKER_SIZE_HI for f in pinned)
+    assert sum(s == MARKER_SIZE_HI for s in sizes.values()) == len(pinned)
