@@ -251,3 +251,62 @@ def test_build_dendrogram_highlight(bundle):
     sizes = dict(zip((cd[0] for cd in leaves.customdata), leaves.marker.size))
     assert all(sizes[f] == MARKER_SIZE_HI for f in pinned)
     assert sum(s == MARKER_SIZE_HI for s in sizes.values()) == len(pinned)
+
+
+# ---------------------------------------------------------------------------
+# grid.py
+# ---------------------------------------------------------------------------
+def test_risk_contributions_sum_to_one():
+    from dashboard.grid import risk_contributions
+
+    cov = np.array([[0.04, 0.01, 0.0], [0.01, 0.09, 0.02], [0.0, 0.02, 0.16]])
+    w = np.array([0.5, 0.3, 0.2])
+    rc = risk_contributions(w, cov)
+    assert rc.sum() == pytest.approx(1.0)
+    assert np.allclose(rc, w * (cov @ w) / (w @ cov @ w))
+    assert np.allclose(risk_contributions(np.zeros(3), cov), 0.0)
+
+
+def test_fund_metrics_columns(synthetic_returns):
+    from dashboard.grid import fund_metrics
+
+    m = fund_metrics(synthetic_returns.iloc[-252:])
+    assert list(m.columns) == ["ann_return", "ann_vol", "sharpe", "max_drawdown"]
+    assert (m["ann_vol"] > 0).all() and (m["max_drawdown"] <= 0).all()
+    assert m.loc[FUND_IDS[0], "sharpe"] == pytest.approx(m.loc[FUND_IDS[0], "ann_return"] / m.loc[FUND_IDS[0], "ann_vol"])
+
+
+def test_build_rows_ordered_by_leaf_order_and_json_safe(bundle, synthetic_returns):
+    from dashboard.cache import _compute_portfolio
+    from dashboard.data import window_slice
+    from dashboard.grid import build_rows, column_defs
+
+    win = window_slice(synthetic_returns, synthetic_returns.index[-1], 24)
+    port = _compute_portfolio(win.frame, CATS, "hrp", "moderado")
+    rows = build_rows(bundle, port, win.frame, {FUND_IDS[0]: "Nombre Largo"}, CATS)
+    assert [r["fund_id"] for r in rows] == [bundle.fund_ids[i] for i in bundle.leaf_order]
+    assert rows[[r["fund_id"] for r in rows].index(FUND_IDS[0])]["nombre"] == "Nombre Largo"
+    assert sum(r["weight"] for r in rows) == pytest.approx(1.0)
+    assert sum(r["risk_contrib"] for r in rows) == pytest.approx(1.0)
+    by_cluster = {}
+    for r in rows:
+        by_cluster.setdefault(r["cluster"], 0.0)
+        by_cluster[r["cluster"]] += r["risk_contrib"]
+    assert all(r["cluster_risk_contrib"] == pytest.approx(by_cluster[r["cluster"]]) for r in rows)
+    assert all(r["raw_weight"] is not None for r in rows)
+    json.dumps(rows)
+    assert all(r["cat"] == CATS[r["fund_id"]] for r in rows)
+
+    port_mk = _compute_portfolio(win.frame, CATS, "markowitz", "moderado")
+    rows_mk = build_rows(bundle, port_mk, win.frame, {}, CATS)
+    assert all(r["raw_weight"] is None for r in rows_mk)
+
+
+def test_column_defs_toggle_raw_weight():
+    from dashboard.grid import column_defs
+
+    hrp = {c["field"]: c for c in column_defs("hrp")}
+    mk = {c["field"]: c for c in column_defs("markowitz")}
+    assert hrp["raw_weight"].get("hide", False) is False and mk["raw_weight"]["hide"] is True
+    assert set(hrp) >= {"fund_id", "cat", "cluster", "weight", "risk_contrib", "cluster_risk_contrib",
+                        "ann_return", "ann_vol", "sharpe", "max_drawdown"}
