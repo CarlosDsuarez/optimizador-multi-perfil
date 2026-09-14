@@ -486,3 +486,15 @@ def test_asof_choices_follow_lookback(app):
     keep = dispatch(app, "asof.options", {"lookback.value": 24}, state={"asof.value": opts[-1]})
     assert keep["asof"]["value"] == opts[-1]
 
+
+def test_compute_guards_payload_construction(app, monkeypatch):
+    """Una excepción al construir el payload (build_rows) debe abrir la alerta, no devolver 500."""
+    import dashboard.app as da
+
+    def boom(*args, **kwargs):
+        raise ValueError("fila rota")
+
+    monkeypatch.setattr(da, "build_rows", boom)
+    out = _compute(app)
+    assert out["error"]["is_open"] is True and "ValueError: fila rota" in out["error"]["children"]
+    assert "result" not in out

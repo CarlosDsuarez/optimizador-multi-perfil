@@ -133,20 +133,20 @@ def register_callbacks(app: Dash, data: DashboardData) -> None:
             win = dd.window_slice(data.returns, pd.Timestamp(asof), int(lookback))
             dist = distance_bundle(win.frame, win.universe, win.start, win.end, data.fingerprint)
             port = portfolio_bundle(win.frame, data.categories, win.universe, win.start, win.end, data.fingerprint, method, profile)
-        except (BacktestError, OptimizationError, ValueError) as exc:
+            payload = {
+                "method": method, "profile": profile,
+                "window": {"start": win.start, "end": win.end, "n_obs": int(len(win.frame))},
+                "fund_ids": list(dist.fund_ids), "linkage": dist.linkage.tolist(),
+                "leaf_order": dist.leaf_order, "cluster_labels": dist.cluster_labels,
+                "weights": port.weights,
+                "rows": build_rows(dist, port, win.frame, data.labels, data.categories),
+                "badges": {"rv": port.exposures["rv"], "rf": port.exposures["rf"], "rv_intl": port.exposures["rv_intl"],
+                           "volatility": _num(port.volatility), "expected_return": _num(port.expected_return),
+                           "sharpe": _num(port.sharpe), "n_funds": len(dist.fund_ids)},
+            }
+        except (BacktestError, OptimizationError, ValueError, KeyError) as exc:
             log.warning("compute(%s, %s, %s, %s) failed: %s", profile, method, asof, lookback, exc)
             return no_update, f"{type(exc).__name__}: {exc}", True
-        payload = {
-            "method": method, "profile": profile,
-            "window": {"start": win.start, "end": win.end, "n_obs": int(len(win.frame))},
-            "fund_ids": list(dist.fund_ids), "linkage": dist.linkage.tolist(),
-            "leaf_order": dist.leaf_order, "cluster_labels": dist.cluster_labels,
-            "weights": port.weights,
-            "rows": build_rows(dist, port, win.frame, data.labels, data.categories),
-            "badges": {"rv": port.exposures["rv"], "rf": port.exposures["rf"], "rv_intl": port.exposures["rv_intl"],
-                       "volatility": _num(port.volatility), "expected_return": _num(port.expected_return),
-                       "sharpe": _num(port.sharpe), "n_funds": len(dist.fund_ids)},
-        }
         return payload, "", False
 
     @app.callback(Output("grid", "rowData"), Output("grid", "columnDefs"), Output("badges", "children"), Input("result", "data"))
