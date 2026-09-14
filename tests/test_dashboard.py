@@ -310,3 +310,179 @@ def test_column_defs_toggle_raw_weight():
     assert hrp["raw_weight"].get("hide", False) is False and mk["raw_weight"]["hide"] is True
     assert set(hrp) >= {"fund_id", "cat", "cluster", "weight", "risk_contrib", "cluster_risk_contrib",
                         "ann_return", "ann_vol", "sharpe", "max_drawdown"}
+
+
+# ---------------------------------------------------------------------------
+# app.py — dispatch helpers (POST /_dash-update-component == real Dash callback path, no browser)
+# ---------------------------------------------------------------------------
+def _output_key(app, contains: str) -> str:
+    return next(k for k in app.callback_map if contains in k)
+
+
+def _outputs(key: str) -> list[dict] | dict:
+    items = [dict(zip(("id", "property"), s.split("."))) for s in key.strip(".").split("...")]
+    return items if key.startswith("..") else items[0]
+
+
+def dispatch(app, contains: str, inputs: dict[str, object], state: dict[str, object] | None = None,
+             changed: list[str] | None = None) -> dict:
+    """inputs/state: {"id.prop": value}. Returns the {"id": {"prop": value}} response dict."""
+    key = _output_key(app, contains)
+    body = {
+        "output": key,
+        "outputs": _outputs(key),
+        "inputs": [{"id": k.split(".")[0], "property": k.split(".")[1], "value": v} for k, v in inputs.items()],
+        "state": [{"id": k.split(".")[0], "property": k.split(".")[1], "value": v} for k, v in (state or {}).items()],
+        "changedPropIds": changed if changed is not None else list(inputs),
+    }
+    resp = app.server.test_client().post("/_dash-update-component", json=body)
+    assert resp.status_code == 200, resp.get_data(as_text=True)[:500]
+    return resp.get_json()["response"]
+
+
+@pytest.fixture
+def app(synthetic_returns):
+    from dashboard.app import create_app
+
+    return create_app(returns=synthetic_returns, labels={}, cache_cfg={"CACHE_TYPE": "SimpleCache"})
+
+
+def _compute(app, profile="moderado", method="hrp", asof=None, lookback=24):
+    asof = asof or str(app._omp_last_date)
+    return dispatch(app, "result.data", {"profile.value": profile, "method.value": method,
+                                         "asof.value": asof, "lookback.value": lookback}, changed=["profile.value"])
+
+
+def test_layout_validates_and_ids_present(app):
+    ids = {c.id for c in app.layout._traverse() if getattr(c, "id", None)}
+    assert {"profile", "method", "lookback", "asof", "result", "pinned", "dendro", "grid", "error", "badges"} <= ids
+    app.validation_layout  # noqa: B018 — raises if the layout is invalid
+    assert {"asof_choices", "compute", "render_grid", "render_figure", "sync"} <= {
+        cb["callback"].__wrapped__.__name__ if hasattr(cb["callback"], "__wrapped__") else cb["callback"].__name__
+        for cb in app.callback_map.values()}
+
+
+@pytest.mark.parametrize("method", ["markowitz", "risk_parity", "hrp"])
+@pytest.mark.parametrize("profile", ["conservador", "moderado", "agresivo"])
+def test_smoke_nine_combinations(app, method, profile):
+    out = _compute(app, profile=profile, method=method)
+    payload = out["result"]["data"]
+    assert out["error"]["is_open"] is False
+    assert payload["method"] == method and payload["profile"] == profile
+    assert len(payload["rows"]) == len(payload["fund_ids"]) == 21
+    assert len(payload["linkage"]) == 20 and len(payload["cluster_labels"]) == 21
+    assert abs(sum(payload["weights"].values()) - 1) < 1e-6
+    assert (payload["rows"][0]["raw_weight"] is not None) == (method == "hrp")
+
+
+def test_compute_reports_errors_without_crashing(app):
+    out = dispatch(app, "result.data", {"profile.value": "moderado", "method.value": "hrp",
+                                        "asof.value": str(app._omp_last_date), "lookback.value": 480},
+                   changed=["lookback.value"])
+    assert out["error"]["is_open"] is True and "BacktestError" in out["error"]["children"]
+    assert "result" not in out                                         # no_update
+
+
+def test_profile_and_method_changes_hit_distance_cache(app, monkeypatch):
+    import dashboard.cache as dc
+
+    calls = {"n": 0}
+    real = dc._compute_distance
+
+    def counting(window):
+        calls["n"] += 1
+        return real(window)
+
+    monkeypatch.setattr(dc, "_compute_distance", counting)
+    for profile in ("conservador", "moderado", "agresivo"):
+        for method in ("markowitz", "risk_parity", "hrp"):
+            _compute(app, profile=profile, method=method)
+    assert calls["n"] == 1
+    _compute(app, lookback=12)
+    assert calls["n"] == 2
+    _compute(app, profile="agresivo", lookback=24)
+    assert calls["n"] == 2
+
+
+def test_profile_change_changes_rows_and_method_toggles_raw(app):
+    a = _compute(app, profile="conservador", method="risk_parity")["result"]["data"]
+    b = _compute(app, profile="agresivo", method="risk_parity")["result"]["data"]
+    assert a["weights"] != b["weights"]
+    assert a["badges"]["rv"] <= 0.20 + 1e-6 and b["badges"]["rf"] >= 0.20 - 1e-6
+    grid_a = dispatch(app, "grid.rowData", {"result.data": a})
+    grid_h = dispatch(app, "grid.rowData", {"result.data": _compute(app, method="hrp")["result"]["data"]})
+    cols_a = {c["field"]: c for c in grid_a["grid"]["columnDefs"]}
+    cols_h = {c["field"]: c for c in grid_h["grid"]["columnDefs"]}
+    assert cols_a["raw_weight"]["hide"] is True and cols_h["raw_weight"]["hide"] is False
+    assert [r["fund_id"] for r in grid_a["grid"]["rowData"]] == [a["fund_ids"][i] for i in a["leaf_order"]]
+    assert grid_a["badges"]["children"]
+
+
+def test_render_figure_uses_store_and_pins(app):
+    from dashboard.figures import LINK_WIDTH_HI
+
+    payload = _compute(app)["result"]["data"]
+    fig = dispatch(app, "dendro.figure", {"result.data": payload, "pinned.data": []})["dendro"]["figure"]
+    assert len(fig["data"]) == 21 and fig["data"][-1]["name"] == "leaves"
+    two = [tr["customdata"][0] for tr in fig["data"][:-1] if len(tr["customdata"][0]) == 2][0]
+    fig2 = dispatch(app, "dendro.figure", {"result.data": payload, "pinned.data": two})["dendro"]["figure"]
+    assert any(tr["line"]["width"] == LINK_WIDTH_HI for tr in fig2["data"][:-1])
+    empty = dispatch(app, "dendro.figure", {"result.data": None, "pinned.data": []})["dendro"]["figure"]
+    assert empty["data"] == [] or "layout" in empty
+
+
+def _hover(ids):
+    return {"points": [{"customdata": list(ids)}]}
+
+
+def test_sync_hover_leaf_selects_row(app):
+    out = dispatch(app, "grid.selectedRows", {"dendro.hoverData": _hover([FUND_IDS[3]]), "dendro.clickData": None},
+                   state={"pinned.data": []}, changed=["dendro.hoverData"])
+    assert out["grid"]["selectedRows"] == {"ids": [FUND_IDS[3]]}
+    assert out["grid"]["scrollTo"]["rowId"] == FUND_IDS[3]
+    assert "pinned" not in out                                          # hover never rewrites pins
+
+
+def test_sync_hover_link_selects_subtree(app):
+    from dashboard.figures import dendrogram_geometry
+
+    payload = _compute(app)["result"]["data"]
+    _, links = dendrogram_geometry(np.array(payload["linkage"]))
+    link = max((l for l in links if len(l.leaves) < 21), key=lambda l: len(l.leaves))
+    subtree = [payload["fund_ids"][i] for i in link.leaves]
+    out = dispatch(app, "grid.selectedRows", {"dendro.hoverData": _hover(subtree), "dendro.clickData": None},
+                   state={"pinned.data": []}, changed=["dendro.hoverData"])
+    assert sorted(out["grid"]["selectedRows"]["ids"]) == sorted(subtree)
+
+
+def test_sync_hover_out_clears_unless_pinned(app):
+    out = dispatch(app, "grid.selectedRows", {"dendro.hoverData": None, "dendro.clickData": None},
+                   state={"pinned.data": []}, changed=["dendro.hoverData"])
+    assert out["grid"]["selectedRows"] == {"ids": []}
+    out = dispatch(app, "grid.selectedRows", {"dendro.hoverData": None, "dendro.clickData": None},
+                   state={"pinned.data": [FUND_IDS[0]]}, changed=["dendro.hoverData"])
+    assert out["grid"]["selectedRows"] == {"ids": [FUND_IDS[0]]}
+    out = dispatch(app, "grid.selectedRows", {"dendro.hoverData": _hover([FUND_IDS[5]]), "dendro.clickData": None},
+                   state={"pinned.data": [FUND_IDS[0]]}, changed=["dendro.hoverData"])
+    assert sorted(out["grid"]["selectedRows"]["ids"]) == sorted([FUND_IDS[0], FUND_IDS[5]])
+
+
+def test_sync_click_toggles_pin(app):
+    click = _hover([FUND_IDS[1], FUND_IDS[2]])
+    out = dispatch(app, "grid.selectedRows", {"dendro.hoverData": click, "dendro.clickData": click},
+                   state={"pinned.data": [FUND_IDS[0]]}, changed=["dendro.clickData"])
+    assert sorted(out["pinned"]["data"]) == sorted([FUND_IDS[0], FUND_IDS[1], FUND_IDS[2]])
+    assert sorted(out["grid"]["selectedRows"]["ids"]) == sorted(out["pinned"]["data"])
+    out2 = dispatch(app, "grid.selectedRows", {"dendro.hoverData": click, "dendro.clickData": click},
+                    state={"pinned.data": out["pinned"]["data"]}, changed=["dendro.clickData"])
+    assert out2["pinned"]["data"] == [FUND_IDS[0]]                     # second click unpins the pair
+    assert out2["grid"]["selectedRows"] == {"ids": [FUND_IDS[0]]}
+
+
+def test_asof_choices_follow_lookback(app):
+    out = dispatch(app, "asof.options", {"lookback.value": 36}, state={"asof.value": "1999-01-01"})
+    opts = [o["value"] for o in out["asof"]["options"]]
+    assert opts[-1] == str(app._omp_last_date) and out["asof"]["value"] == opts[-1]
+    keep = dispatch(app, "asof.options", {"lookback.value": 24}, state={"asof.value": opts[-1]})
+    assert keep["asof"]["value"] == opts[-1]
+

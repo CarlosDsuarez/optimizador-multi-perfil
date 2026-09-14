@@ -1,0 +1,7 @@
+/* Resaltado de filas seleccionadas desde el dendrograma (AG Grid 35 Theming API vars) */
+.ag-root-wrapper {
+  --ag-selected-row-background-color: rgba(255, 176, 0, 0.45);
+  --ag-row-hover-color: rgba(0, 0, 0, 0.03);
+}
+#dendro .nsewdrag { cursor: crosshair; }
+.omp-badge { font-size: 0.85rem; }
