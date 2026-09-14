@@ -23,8 +23,11 @@ también con Markowitz y Risk Parity; con HRP el grid añade la columna de pesos
 **Cache.** `distance_bundle` se memoiza con clave `(universo, inicio, fin, fingerprint)` — perfil y metodología
 no están en la clave, por lo que cambiar de perfil nunca recalcula la matriz de distancia
 (`tests/test_dashboard.py::test_profile_and_method_changes_hit_distance_cache`). `fingerprint` = sha256 del
-parquet: un re-ingest invalida la cache sin reiniciar. TTL `DIST_TTL_SECONDS = 24 h` (cadencia diaria SFC;
-solo acota memoria, ver comentario en `cache.py`). Backend `SimpleCache` por defecto; para varios workers:
+parquet. `returns`/`fingerprint` se calculan una sola vez en `load_data` al arrancar el proceso: un re-ingest
+en caliente no invalida nada mientras el proceso sigue corriendo. Lo que sí logra el fingerprint es que, tras
+reiniciar el proceso después de un re-ingest, un backend persistente (`FileSystemCache`) nunca sirva un
+bundle calculado con el parquet anterior. TTL `DIST_TTL_SECONDS = 24 h` (cadencia diaria SFC; solo acota
+memoria, ver comentario en `cache.py`). Backend `SimpleCache` por defecto; para varios workers:
 `DASH_CACHE_TYPE=FileSystemCache DASH_CACHE_DIR=.cache/dashboard`.
 
 **Tests.** Los callbacks se prueban por `POST /_dash-update-component` con el test client de Flask (ruta real de

@@ -36,7 +36,10 @@ def load_labels(path: Path | str = FUNDS_MASTER_PATH) -> dict[str, str]:
 
 def fingerprint(returns: pd.DataFrame, path: Path | str | None = None) -> str:
     """16 hex de sha256 del parquet (si existe) o del contenido del DataFrame. Forma parte de la clave de cache:
-    un re-ingest cambia el fingerprint y por tanto invalida la cache sin reiniciar el proceso."""
+    un re-ingest cambia el fingerprint y por tanto la clave. ``returns``/``fingerprint`` se calculan una sola
+    vez en ``load_data`` al arrancar el proceso, así que un re-ingest en caliente no invalida nada mientras
+    el proceso sigue vivo; lo que sí garantiza es que, tras reiniciar el proceso después de un re-ingest, un
+    backend persistente (``FileSystemCache``) nunca sirva un bundle calculado con el parquet anterior."""
     h = hashlib.sha256()
     if path is not None and Path(path).exists():
         h.update(Path(path).read_bytes())
@@ -50,13 +53,19 @@ def _config(index: pd.DatetimeIndex, lookback_months: int) -> BacktestConfig:
     return BacktestConfig(estimation_start=str(index[0].date()), window_months=lookback_months)
 
 
-def asof_options(index: pd.DatetimeIndex, lookback_months: int) -> list[pd.Timestamp]:
-    """Fechas de decisión del backtest (último día hábil de cada trimestre con ≥ lookback meses de historia)
-    más la última fecha disponible."""
+def asof_options(returns: pd.DataFrame, lookback_months: int) -> list[pd.Timestamp]:
+    """Fechas de decisión del backtest (último día hábil de cada trimestre) con universo activo suficiente
+    (``len(active_universe(...)) >= cfg.min_active_funds``) más la última fecha disponible. Se filtra sobre
+    ``returns`` (y no solo el índice) porque la primera fecha de ``rebalance_dates`` cae justo en el borde de
+    ``lookback`` meses de historia, donde ningún fondo la cumple todavía; devolverla dejaría el primer as-of
+    de cualquier lookback roto en ``window_slice``."""
+    index = returns.index
+    cfg = _config(index, lookback_months)
     try:
-        dates = rebalance_dates(index, _config(index, lookback_months))
+        candidates = rebalance_dates(index, cfg)
     except BacktestError:
-        dates = []
+        candidates = []
+    dates = [d for d in candidates if len(active_universe(returns, d, cfg)) >= cfg.min_active_funds]
     last = index[-1]
     return dates + [last] if not dates or dates[-1] != last else dates
 
@@ -79,7 +88,8 @@ def window_slice(returns: pd.DataFrame, asof: pd.Timestamp, lookback_months: int
     """Universo activo point-in-time y ventana de estimación en ``asof``. ``BacktestError`` si < 2 fondos."""
     cfg = _config(returns.index, lookback_months)
     universe = tuple(active_universe(returns, asof, cfg))
-    if len(universe) < 2:
-        raise BacktestError(f"solo {len(universe)} fondo(s) activo(s) en {asof.date()} con {lookback_months} m de historia")
+    if len(universe) < cfg.min_active_funds:
+        raise BacktestError(f"solo {len(universe)} fondo(s) activo(s) en {asof.date()} con {lookback_months} m de historia "
+                             f"(mínimo {cfg.min_active_funds})")
     frame = estimation_window(returns[list(universe)], asof, cfg)
     return Window(universe=universe, frame=frame)

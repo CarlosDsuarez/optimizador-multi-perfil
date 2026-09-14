@@ -54,7 +54,10 @@ variables globales mutables de sesión; el único estado de proceso es la cache 
 - Ventana = `estimation_window(returns[universe], asof, BacktestConfig(window_months=lookback))` →
   `(asof − lookback, asof]`, soporte común, NaN intra-vida → 0 (misma política que el backtest).
 - `fingerprint` = 16 hex de sha256 del parquet (o del contenido del DataFrame inyectado). Un re-ingest cambia
-  la clave y por tanto invalida la cache sin reiniciar el proceso.
+  la clave, pero `returns`/`fingerprint` se calculan una sola vez en `load_data` al arrancar el proceso: un
+  re-ingest en caliente no invalida nada mientras el proceso sigue corriendo. Lo que sí logra el fingerprint
+  es que, tras reiniciar el proceso después de un re-ingest, un backend persistente (`FileSystemCache`) nunca
+  sirva un bundle calculado con el parquet anterior.
 
 ## 5. Cache (no negociable)
 

@@ -35,6 +35,9 @@ def synthetic_returns() -> pd.DataFrame:
     return make_returns()
 
 
+LAST_DATE = str(make_returns().index[-1].date())  # make_returns() es determinista (seed 7): estable entre tests
+
+
 # ---------------------------------------------------------------------------
 # data.py
 # ---------------------------------------------------------------------------
@@ -60,11 +63,21 @@ def test_asof_options_end_with_last_date(synthetic_returns):
     from dashboard.data import asof_options
 
     idx = synthetic_returns.index
-    opts = asof_options(idx, 24)
+    opts = asof_options(synthetic_returns, 24)
     assert opts[-1] == idx[-1]
     assert all(a < b for a, b in zip(opts, opts[1:]))
     assert len(opts) > 1                      # quarter ends after 24 m of history
-    assert asof_options(idx, 36)[-1] == idx[-1]
+    assert asof_options(synthetic_returns, 36)[-1] == idx[-1]
+
+
+@pytest.mark.parametrize("lookback", [12, 24, 36])
+def test_asof_options_every_option_slices(synthetic_returns, lookback):
+    """Cada fecha devuelta por asof_options debe producir una ventana válida (universo suficiente)."""
+    from dashboard.data import asof_options, window_slice
+
+    for asof in asof_options(synthetic_returns, lookback):
+        win = window_slice(synthetic_returns, asof, lookback)
+        assert len(win.universe) >= 2
 
 
 def test_window_slice_matches_backtest_semantics(synthetic_returns):
@@ -231,6 +244,7 @@ def test_build_dendrogram_trace_contract(bundle):
         assert isinstance(subtree, (list, tuple)) and set(subtree) <= set(ids)
         assert all(list(cd) == list(subtree) for cd in tr.customdata)
         assert tr.line.width == LINK_WIDTH
+        assert min(tr.x) > 0                 # ningún vértice de enlace cae en altura 0 (posición de una hoja)
     assert all(s == MARKER_SIZE for s in leaves.marker.size)
     # horizontal orientation: leaf positions on y, distances on x
     assert list(fig.layout.yaxis.ticktext) == [ids[i] for i in bundle.leaf_order]
@@ -350,7 +364,7 @@ def app(synthetic_returns):
 
 
 def _compute(app, profile="moderado", method="hrp", asof=None, lookback=24):
-    asof = asof or str(app._omp_last_date)
+    asof = asof or LAST_DATE
     return dispatch(app, "result.data", {"profile.value": profile, "method.value": method,
                                          "asof.value": asof, "lookback.value": lookback}, changed=["profile.value"])
 
@@ -379,7 +393,7 @@ def test_smoke_nine_combinations(app, method, profile):
 
 def test_compute_reports_errors_without_crashing(app):
     out = dispatch(app, "result.data", {"profile.value": "moderado", "method.value": "hrp",
-                                        "asof.value": str(app._omp_last_date), "lookback.value": 480},
+                                        "asof.value": LAST_DATE, "lookback.value": 480},
                    changed=["lookback.value"])
     assert out["error"]["is_open"] is True and "BacktestError" in out["error"]["children"]
     assert "result" not in out                                         # no_update
@@ -430,7 +444,8 @@ def test_render_figure_uses_store_and_pins(app):
     fig2 = dispatch(app, "dendro.figure", {"result.data": payload, "pinned.data": two})["dendro"]["figure"]
     assert any(tr["line"]["width"] == LINK_WIDTH_HI for tr in fig2["data"][:-1])
     empty = dispatch(app, "dendro.figure", {"result.data": None, "pinned.data": []})["dendro"]["figure"]
-    assert empty["data"] == [] or "layout" in empty
+    assert empty["data"] == []
+    assert "Sin resultado" in empty["layout"]["annotations"][0]["text"]
 
 
 def _hover(ids):
@@ -478,13 +493,15 @@ def test_sync_click_toggles_pin(app):
     out2 = dispatch(app, "grid.selectedRows", {"dendro.hoverData": click, "dendro.clickData": click},
                     state={"pinned.data": out["pinned"]["data"]}, changed=["dendro.clickData"])
     assert out2["pinned"]["data"] == [FUND_IDS[0]]                     # second click unpins the pair
-    assert out2["grid"]["selectedRows"] == {"ids": [FUND_IDS[0]]}
+    # selección = pinned ∪ hovered en toda rama; aquí el click sigue siendo también hover, así que la fila
+    # clicada permanece seleccionada aunque ya no esté fijada
+    assert sorted(out2["grid"]["selectedRows"]["ids"]) == sorted([FUND_IDS[0], FUND_IDS[1], FUND_IDS[2]])
 
 
 def test_asof_choices_follow_lookback(app):
     out = dispatch(app, "asof.options", {"lookback.value": 36}, state={"asof.value": "1999-01-01"})
     opts = [o["value"] for o in out["asof"]["options"]]
-    assert opts[-1] == str(app._omp_last_date) and out["asof"]["value"] == opts[-1]
+    assert opts[-1] == LAST_DATE and out["asof"]["value"] == opts[-1]
     keep = dispatch(app, "asof.options", {"lookback.value": 24}, state={"asof.value": opts[-1]})
     assert keep["asof"]["value"] == opts[-1]
 
@@ -500,6 +517,33 @@ def test_compute_guards_payload_construction(app, monkeypatch):
     out = _compute(app)
     assert out["error"]["is_open"] is True and "ValueError: fila rota" in out["error"]["children"]
     assert "result" not in out
+
+
+# ---------------------------------------------------------------------------
+# Smoke sobre datos reales (Fase 0/1 ingest) — se omite si el parquet no está presente (CI / checkout limpio)
+# ---------------------------------------------------------------------------
+REAL_RETURNS_PATH = ROOT / "data/cleaned/returns_matrix.parquet"
+
+
+@pytest.mark.skipif(not REAL_RETURNS_PATH.exists(), reason="faltan datos reales (data/cleaned/returns_matrix.parquet)")
+def test_real_data_smoke():
+    """create_app() sin argumentos (carga data/cleaned + data/universe.json): combinación por defecto
+    (HRP/moderado, 24 m, última fecha) sin error y las 21 filas del universo aprobado; y todas las fechas de
+    asof_options(returns, 24) producen una ventana válida vía window_slice (D1-D11, cierra la deuda de
+    cobertura de load_returns/load_labels de la spec §9)."""
+    from dashboard.app import create_app
+    from dashboard.data import asof_options, load_returns, window_slice
+
+    real_returns = load_returns()
+    last = str(real_returns.index[-1].date())
+    app = create_app()
+    out = dispatch(app, "result.data", {"profile.value": "moderado", "method.value": "hrp",
+                                        "asof.value": last, "lookback.value": 24}, changed=["profile.value"])
+    assert out["error"]["is_open"] is False
+    assert len(out["result"]["data"]["rows"]) == 21
+
+    for asof in asof_options(real_returns, 24):
+        window_slice(real_returns, asof, 24)  # no debe lanzar BacktestError
 
 
 # ---------------------------------------------------------------------------
@@ -523,6 +567,8 @@ def test_e2e_hover_leaf_highlights_grid_row(dash_duo, synthetic_returns):
     markers = dash_duo.find_elements("#dendro .scatterlayer .trace:last-child .points path")
     assert len(markers) == 21
     ActionChains(dash_duo.driver).move_to_element(markers[0]).perform()
-    dash_duo.wait_for_element(".ag-row-selected", timeout=10)
-    assert len(dash_duo.find_elements(".ag-row-selected")) == 1
+    # fund_id está "pinned: left", así que AG Grid duplica cada fila en dos contenedores DOM
+    # (.ag-pinned-left-cols-container y .ag-center-cols-container); se comprueba solo el segundo.
+    dash_duo.wait_for_element(".ag-center-cols-container .ag-row-selected", timeout=10)
+    assert len(dash_duo.find_elements(".ag-center-cols-container .ag-row-selected")) == 1
     assert dash_duo.get_logs() == []

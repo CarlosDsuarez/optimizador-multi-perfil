@@ -51,7 +51,10 @@ def fund_metrics(window: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame({"ann_return": mu, "ann_vol": vol, "sharpe": sharpe, "max_drawdown": max_dd})
 
 
-def _num(x: float) -> float | None:
+def _num(x: float | None) -> float | None:
+    """``None``/NaN/±inf → ``None`` (JSON no admite NaN/Infinity; ``dcc.Store`` viaja como JSON)."""
+    if x is None:
+        return None
     x = float(x)
     return x if math.isfinite(x) else None
 

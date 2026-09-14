@@ -9,7 +9,6 @@ Ejecutar: ``.venv/bin/python -m dashboard.app`` → http://127.0.0.1:8050
 from __future__ import annotations
 
 import logging
-import math
 from collections.abc import Mapping
 from dataclasses import dataclass
 
@@ -24,7 +23,7 @@ from backtest.walk_forward import BacktestError
 from dashboard import data as dd
 from dashboard.cache import cache, cache_config, distance_bundle, portfolio_bundle
 from dashboard.figures import build_dendrogram
-from dashboard.grid import DEFAULT_COL_DEF, build_rows, column_defs
+from dashboard.grid import DEFAULT_COL_DEF, _num, build_rows, column_defs
 from optimization.portfolio_optimizer import METHODS, PROFILES, OptimizationError, load_categories
 
 log = logging.getLogger(__name__)
@@ -54,10 +53,6 @@ def load_data(returns: pd.DataFrame | None = None, labels: Mapping[str, str] | N
         labels=labels if labels is not None else dd.load_labels(),
         fingerprint=dd.fingerprint(returns, dd.RETURNS_PATH if from_disk else None),
     )
-
-
-def _num(x: float | None) -> float | None:
-    return None if x is None or not math.isfinite(float(x)) else float(x)
 
 
 def _fmt_pct(x: float | None) -> str:
@@ -123,7 +118,7 @@ def _badges(payload: dict) -> list:
 def register_callbacks(app: Dash, data: DashboardData) -> None:
     @app.callback(Output("asof", "options"), Output("asof", "value"), Input("lookback", "value"), State("asof", "value"))
     def asof_choices(lookback, current):
-        opts = [str(d.date()) for d in dd.asof_options(data.returns.index, int(lookback))]
+        opts = [str(d.date()) for d in dd.asof_options(data.returns, int(lookback))]
         return [{"label": o, "value": o} for o in opts], current if current in opts else opts[-1]
 
     @app.callback(Output("result", "data"), Output("error", "children"), Output("error", "is_open"),
@@ -175,7 +170,8 @@ def register_callbacks(app: Dash, data: DashboardData) -> None:
                 pinned = [p for p in pinned if p not in ids]
             else:
                 pinned = list(dict.fromkeys(pinned + ids))
-            return {"ids": pinned}, _scroll(pinned), pinned
+            shown = list(dict.fromkeys(pinned + _ids_from_event(hover)))
+            return {"ids": shown}, _scroll(shown), pinned
         shown = list(dict.fromkeys(pinned + _ids_from_event(hover)))
         return {"ids": shown}, _scroll(shown), no_update
 
@@ -191,7 +187,6 @@ def create_app(returns: pd.DataFrame | None = None, labels: Mapping[str, str] | 
     cache.init_app(app.server, cache_cfg or cache_config())
     app.layout = build_layout(data)
     register_callbacks(app, data)
-    app._omp_last_date = data.returns.index[-1].date()   # convenience for tests / __main__ logging only
     return app
 
 

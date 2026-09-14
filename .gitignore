@@ -12,3 +12,6 @@ __pycache__/
 htmlcov/
 venv/
 .venv/
+
+# dashboard: FileSystemCache backend (DASH_CACHE_DIR, default .cache/dashboard)
+.cache/

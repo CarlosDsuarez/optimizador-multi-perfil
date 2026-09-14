@@ -52,14 +52,24 @@ def dendrogram_geometry(z: np.ndarray) -> tuple[list[int], list[Link]]:
 
 
 def _densify(xs: Sequence[float], ys: Sequence[float], per_segment: int = POINTS_PER_SEGMENT) -> tuple[list[float], list[float]]:
+    """Interpola cada tramo de la U en ``per_segment`` puntos para que el hover responda en todo el trazo.
+
+    Omite los vértices con altura (``ys``) igual a 0: solo pueden aparecer en el primer y último tramo (una
+    pata de la U cuyo hijo es una hoja), y coinciden en píxeles con la posición de esa hoja en el marcador
+    (``x = 0``). plotly resuelve el hover por distancia al vértice más cercano, así que un vértice de enlace
+    exactamente ahí compite con el marcador de la hoja y a veces gana, resaltando el subárbol del enlace en
+    vez de la fila de la hoja. Se descarta el primer punto (``t = 0``) del tramo cuando su altura de partida
+    es 0, y el punto final añadido tras el bucle cuando la altura del último tramo lo es."""
     px: list[float] = []
     py: list[float] = []
-    t = np.linspace(0.0, 1.0, per_segment, endpoint=False)
+    t_full = np.linspace(0.0, 1.0, per_segment, endpoint=False)
     for (x0, y0), (x1, y1) in zip(zip(xs, ys), zip(xs[1:], ys[1:])):
+        t = t_full[1:] if y0 == 0.0 else t_full
         px.extend((x0 + (x1 - x0) * t).tolist())
         py.extend((y0 + (y1 - y0) * t).tolist())
-    px.append(float(xs[-1]))
-    py.append(float(ys[-1]))
+    if ys[-1] != 0.0:
+        px.append(float(xs[-1]))
+        py.append(float(ys[-1]))
     return px, py
 
 
