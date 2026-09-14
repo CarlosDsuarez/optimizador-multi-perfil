@@ -500,3 +500,29 @@ def test_compute_guards_payload_construction(app, monkeypatch):
     out = _compute(app)
     assert out["error"]["is_open"] is True and "ValueError: fila rota" in out["error"]["children"]
     assert "result" not in out
+
+
+# ---------------------------------------------------------------------------
+# E2E — real browser hover (dash[testing] pins selenium<=4.2.0: chromedriver must be on PATH)
+# ---------------------------------------------------------------------------
+import shutil  # noqa: E402
+
+pytestmark_e2e = pytest.mark.skipif(shutil.which("chromedriver") is None,
+                                    reason="chromedriver no está en PATH (brew install chromedriver)")
+
+
+@pytestmark_e2e
+def test_e2e_hover_leaf_highlights_grid_row(dash_duo, synthetic_returns):
+    from selenium.webdriver.common.action_chains import ActionChains
+
+    from dashboard.app import create_app
+
+    app = create_app(returns=synthetic_returns, labels={}, cache_cfg={"CACHE_TYPE": "SimpleCache"})
+    dash_duo.start_server(app)
+    dash_duo.wait_for_element(".ag-row", timeout=60)
+    markers = dash_duo.find_elements("#dendro .scatterlayer .trace:last-child .points path")
+    assert len(markers) == 21
+    ActionChains(dash_duo.driver).move_to_element(markers[0]).perform()
+    dash_duo.wait_for_element(".ag-row-selected", timeout=10)
+    assert len(dash_duo.find_elements(".ag-row-selected")) == 1
+    assert dash_duo.get_logs() == []
