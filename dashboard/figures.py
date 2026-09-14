@@ -107,6 +107,6 @@ def build_dendrogram(z: np.ndarray, fund_ids: Sequence[str], labels: Mapping[str
         xaxis=dict(title="distancia √((1 − ρ) / 2)", range=[-0.03 * max_h, 1.05 * max_h], zeroline=False,
                    gridcolor="#eeeeee"),
         yaxis=dict(tickvals=[pos[i] for i in leaves], ticktext=[fund_ids[i] for i in leaves],
-                   range=[0, LEAF_STEP * n], showgrid=False, zeroline=False, tickfont=dict(size=11)),
+                   range=[LEAF_STEP * n, 0], showgrid=False, zeroline=False, tickfont=dict(size=11)),
     )
     return fig

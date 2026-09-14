@@ -79,7 +79,7 @@ def build_layout(data: DashboardData) -> dbc.Container:
         ]),
         dbc.Alert(id="error", color="danger", is_open=False, dismissable=True),
         dbc.Row(className="g-3", children=[
-            dbc.Col(dcc.Graph(id="dendro", clear_on_unhover=True, config={"displayModeBar": False}), md=5),
+            dbc.Col(dcc.Graph(id="dendro", clear_on_unhover=True, config={"displayModeBar": False}), lg=5),
             dbc.Col([
                 html.Div(id="badges", className="mb-2 d-flex flex-wrap gap-2"),
                 dag.AgGrid(
@@ -88,7 +88,7 @@ def build_layout(data: DashboardData) -> dbc.Container:
                     dashGridOptions={"rowSelection": GRID_SELECTION, "animateRows": True, "tooltipShowDelay": 300},
                     style={"height": "70vh", "width": "100%"},
                 ),
-            ], md=7),
+            ], lg=7),
         ]),
         html.Small("Hover sobre una hoja resalta su fila; sobre un enlace, todo el subárbol. Click fija/libera la selección.",
                    className="text-muted"),

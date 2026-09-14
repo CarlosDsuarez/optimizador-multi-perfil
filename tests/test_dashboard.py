@@ -234,6 +234,8 @@ def test_build_dendrogram_trace_contract(bundle):
     assert all(s == MARKER_SIZE for s in leaves.marker.size)
     # horizontal orientation: leaf positions on y, distances on x
     assert list(fig.layout.yaxis.ticktext) == [ids[i] for i in bundle.leaf_order]
+    # hoja 0 (primera fila del grid) arriba: eje y invertido
+    assert tuple(fig.layout.yaxis.range) == (10.0 * n, 0.0)
     assert max(max(tr.x) for tr in fig.data[:-1]) == pytest.approx(bundle.linkage[-1, 2])
 
 
